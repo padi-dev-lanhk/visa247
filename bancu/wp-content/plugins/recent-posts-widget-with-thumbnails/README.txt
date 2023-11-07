@@ -1,13 +1,13 @@
 === Recent Posts Widget With Thumbnails ===
-Contributors: Hinjiriyo
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TKZZ3US2R56RY
+Contributors: kybernetikservices,Hinjiriyo
+Donate link: https://www.paypal.com/donate?hosted_button_id=NSEQX73VHXKS8
 Tags: images, posts list, recent posts, thumbnails, widget
 Requires at least: 2.9
 Requires PHP: 5.2
-Tested up to: 5.3
-Stable tag: 6.6.1
+Tested up to: 6.2
+Stable tag: 7.1.1
 License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 List the most recent posts with post titles, thumbnails, excerpts, authors, categories, dates and more!
 
@@ -15,11 +15,9 @@ List the most recent posts with post titles, thumbnails, excerpts, authors, cate
 
 List the most recent posts with post titles, thumbnails, excerpts, authors, categories, dates and more!
 
-The plugin is available in English, German (Deutsch), Persian (فارسی), Arabic (العربية), Polish (Polski) Russian (русский), Turkish (Türkçe), Japanese (日本語) and Greek (Ελληνικά).
+Although the plugin is built only for widget areas users reported that it **works in Elementor** and **works in Oxygen**. Whether it runs in other page builders is unknown. Please let me know in which **page builder** you were able to use the plugin successfully.
 
-Although the plugin is build only for widget areas users reported that it **works also in Elementor**. Whether it runs in other page builders is unknown. Please let me know in which **page builder** you were able to use the plugin successfully.
-
-The plugin does not collect any personal data, so it is ready for EU General Data Protection Regulation (GDPR) compliance.
+The plugin does not collect any personal data, so it is **ready for EU General Data Protection Regulation (GDPR) compliance**.
 
 = Lightweight, simple and effective =
 
@@ -31,18 +29,19 @@ You can set the width and heigth of the thumbnails in the list. The thumbnails a
 
 = What users wrote =
 
+* **"... one of the dynamic and smart, yet admin and user optimized widget plugins ..."** in [How to Add Widgets and Start Using Them in WordPress Website?](https://www.sktthemes.org/wordpress-plugins/add-widgets-wordpress-website/) by SKT Posts Themes on September 3, 2020
+* **"بهترین افزونه های نمایش آخرین نوشته ها در وردپرس"** in [ابزارک آخرین نوشته وردپرس](https://modirwp.com/%D8%A7%D9%81%D8%B2%D9%88%D9%86%D9%87-recent-posts-widget-with-thumbnails/) by Ghodsi on December 16, 2019
+* **"Another good all around widget, suitable for most projects"** in [Free WordPress recent posts widget – Which one is the best?](https://howto-wordpress-tips.com/free-wordpress-recent-posts-widget/) on December 3, 2019
+* **"In just a few clicks, your website will look considerably more established and professional."** in [3 Best WordPress Thumbnail Plugins to Manage Images Perfectly](https://blog.hubspot.com/website/wordpress-thumbnail-plugins) by HubSpot Staff on October 29, 2019
 * **The best of the recent posts widgets** in the [reviews](https://wordpress.org/support/topic/the-best-of-the-recent-posts-widget/) by noddemix on June 13, 2019
 * **Number 8** in [14 Plugins para Otimizar seu Site](https://ideiasdig.com/14-plugins-para-otimizar-seu-site/#8Recent_Posts_Widget_With_Thumbnails) by Ideias Dig on November 8, 2018
 * **"Truly EXCELLENT Plugin!"** in the [reviews](https://wordpress.org/support/topic/truly-excellent-plugin/) by dnuttal on October 11, 2018
 * **"Easier than making an egg, seriously."** in the [reviews](https://wordpress.org/support/topic/easier-than-making-an-egg-seriously/) by djackofall on October 2, 2017
 * **"This plugin is INCREDIBLE"** in the [reviews](https://wordpress.org/support/topic/do-you-also-have-one-for-most-popular-posts/) by lucio7 on August 25, 2017
-* **Number 16** in [20 WordPress Plugins Every Blogger Needs to Increase Engagement](http://nocturnalthrive.com/2017/08/09/20-free-wordpress-plugins-every-blogger-needs/) by Nocturnal Thrive on August 9, 2017
 * **Widgets Users Will Love** in [10 Ultra-Useful Free WordPress Widget Plugins](https://speckyboy.com/free-wordpress-widget-plugins/) by Eric Karkovack on June 16, 2017
 * **listed** in [20 WordPress Plugins that Steals Attention to Engage Visitors of Your Site](https://wpteamsupport.com/wordpress-plugins-engage-visitors/) by WP Team Support on March 6, 2017
-* **listed** in [Most useful  WordPress widget ready plugins](https://themeidol.com/most-useful-wordpress-widget-ready-plugins/) by Themeidol on February 5, 2017
 * **Number 1** in [8 essential WordPress widgets to supercharge your website](https://www.nimbusthemes.com/8-essential-wordpress-widgets-to-supercharge-your-website/) by Rafay Ansari on January 31, 2017
 * **"Excellent (after trying a few)!"** in the [reviews](https://wordpress.org/support/topic/excellent-after-trying-a-few/) by giorgissimo on January 6, 2017
-* **Number 3** in [4 Best Sticky Widget Plugins for WordPress Websites](https://www.bloggerhit.com/sticky-widget-plugins-for-wordpress-websites/) by Purushottam Kadam on November 4, 2016
 
 = What users filmed =
 
@@ -57,110 +56,103 @@ Some users published video tutorials on YouTube:
 1. Title of the widget
 2. Number of listed posts
 3. Open post links in new windows
-4. Random order of posts
+4. Different options for post order and sorting
 5. Hide current post in list
 6. Show only sticky posts
 7. Hide sticky posts
 8. Keep sticky posts on top of the list if not hidden
 9. Hide post title
 10. Maximum length of post title
-11. Show post author
-12. Show post categories
-13. Show post category names as links to their archives
-14. Label for categories
-15. Show post date
-16. Show post excerpt
-17. Show number of comments
-18. Excerpt length
-19. Signs after excerpt
-20. Ignore post excerpt field as excerpt source (builds excerpts only from the post content)
-21. Ignore post content as excerpt source (builds excerpts only from the excerpt fields)
-22. Show posts of selected categories (or of all categories)
-23. Show post thumbnail (featured image)
-24. Registered thumbnail dimensions
-25. Thumbnail width in px
-26. Thumbnail height in px
-27. Keep aspect ratio of thumbnails
-28. Try to take the first post image as thumbnail
-29. Only use the first post image as thumbnail
-30. Use default thumbnail if no thumbnail is available
-31. Always use the default thumbnail
-32. Default thumbnail URL
-33. Print slugs of post categories in class attribute of LI elements
-34. Print inline CSS instead of creating a CSS file
-35. No CSS generation at all
-
-= Much more options available in the Pro version =
-
-If you want to build your special posts lists with additional options for layout, informations about each post and embedding via shortcode [take a look at the plugin Ultimate Post List Pro](https://shop.stehle-internet.de/downloads/ultimate-post-list-pro/).
+11. Show post author name
+12. Label for the author names
+13. Show post categories
+14. Show post category names as links to their archives
+15. Label for the categories
+16. Show post date
+17. Show post excerpt
+18. Show number of comments
+19. Excerpt length
+20. Signs after excerpt
+21. Ignore post excerpt field as excerpt source (builds excerpts only from the post content)
+22. Ignore post content as excerpt source (builds excerpts only from the excerpt fields)
+23. Show posts of selected categories (or of all categories)
+24. Show post thumbnail (featured image)
+25. Registered thumbnail dimensions
+26. Thumbnail width in px
+27. Thumbnail height in px
+28. Keep aspect ratio of thumbnails
+29. Try to take the first post image as thumbnail
+30. Only use the first post image as thumbnail
+31. Use default thumbnail if no thumbnail is available
+32. Always use the default thumbnail
+33. Default thumbnail URL
+34. Alternative text of the default thumbnail
+35. Omit all alternative texts of the thumbnails for a better accessibility
+36. Print slugs of post categories in class attribute of LI elements
+37. Print inline CSS instead of creating a CSS file
+38. No CSS generation at all
 
 = Useful hints for developers: Supported Hooks =
 
 The plugin considers the output of actions hooked on:
 
-1. widget_title
-2. rpwwt_widget_posts_args
-3. rpwwt_the_excerpt (for manual excerpts only)
-4. the_excerpt (for all excerpts, is also applied after 'rpwwt_the_excerpt')
-5. rpwwt_excerpt_more
-6. rpwwt_excerpt_length
-7. rpwwt_list_cats
+1. `rpwwt_widget_posts_args`
+	* **passed argument:** the query arguments as an array
+	* **expected return value:** an array of query arguments
+2. `widget_title`
+	* **passed arguments:** 
+		1. the widget title as a string
+		2. the widget settings as an array
+		3. the widget base ID as a string
+	* **expected return value:** a string
+3. `rpwwt_excerpt_length`
+	* **passed argument:** the maximum number of characters of the post excerpt as an integer
+	* **expected return value:** an integer
+4. `rpwwt_excerpt_more`
+	* **passed argument:** the string to append after the post excerpt
+	* **expected return value:** a string
+5. `rpwwt_the_excerpt`
+	* **passed arguments:** 
+		1. the content of the post excerpt field as a string
+		2. the post object
+	* **expected return value:** a string
+6. `the_excerpt`
+	* **passed argument:** the post escerpt as a string
+	* **expected return value:** a string
+7. `rpwwt_categories`
+	* **passed argument:** the category list of each post as a string
+	* **expected return value:** a string
+8. `rpwwt_list_cats`
+	* **passed arguments:** 
+		1. the category name as a string
+		2. the category as an array
+	* **expected return value:** a string
 
 = Useful hints for developers: Available CSS Selectors =
 
 To design the list and its items you can use these CSS selectors:
 
-The elements which contain the posts lists:
-`.rpwwt-widget`
-
-The lists which contain the list items:
-`.rpwwt-widget ul`
-
-All list items in the lists:
-`.rpwwt-widget ul li`
-
-All list items of sticky posts in the lists:
-`.rpwwt-widget ul li.rpwwt-sticky`
-
-All links in the lists; every link contains the image and the post title:
-`.rpwwt-widget ul li a`
-
-All images in the lists (use that to set the margins around images):
-`.rpwwt-widget ul li a img`
-
-All post titles in the lists:
-`.rpwwt-widget ul li a span.rpwwt-post-title`
-
-All post author in the lists:
-`.rpwwt-widget ul li div.rpwwt-post-author`
-
-All post categories in the lists:
-`.rpwwt-widget ul li div.rpwwt-post-categories`
-
-All post dates in the lists:
-`.rpwwt-widget ul li div.rpwwt-post-date`
-
-All post excerpts in the lists: 
-`.rpwwt-widget ul li div.rpwwt-post-excerpt`
-
-All numbers of comments in the lists: 
-`.rpwwt-widget ul li div.rpwwt-post-comments-number`
+`.rpwwt-widget`: the element which contains the post list
+`.rpwwt-widget ul`: the list which contains the list items
+`.rpwwt-widget ul li`: the list item in the list
+`.rpwwt-widget ul li.rpwwt-sticky`: the list item of a sticky post
+`.rpwwt-widget ul li a`: link in the list
+`.rpwwt-widget ul li a img`: linked image
+`.rpwwt-widget ul li a span.rpwwt-post-title`: the post title
+`.rpwwt-widget ul li div.rpwwt-post-author`: the post author
+`.rpwwt-widget ul li div.rpwwt-post-categories`: the post category list
+`.rpwwt-widget ul li div.rpwwt-post-date`: the post date
+`.rpwwt-widget ul li div.rpwwt-post-excerpt`: the post excerpt
+`.rpwwt-widget ul li div.rpwwt-post-excerpt .rpwwt-post-excerpt-more`: the "more" text following the excerpt.
+`.rpwwt-widget ul li div.rpwwt-post-comments-number`: the number of comments
 
 = Languages =
 
-The user interface is available in
+The user interface is available in several languages.
 
-* Arabic (العربية), kindly drawn up by [Shadi AlZard](https://profiles.wordpress.org/salzard)
-* English
-* German (Deutsch)
-* Greek (Ελληνικά), kindly drawn up by Kostas Arvanitidis
-* Japanese (日本語), kindly drawn up by [Kazuyuki Kumai](https://wordpress.org/support/users/kazuyk/)
-* Persian (فارسی), kindly drawn up by [Sajjad Panahi](https://profiles.wordpress.org/asreelm)
-* Polish (Polski), kindly drawn up by [Marcin Mikolajczyk](https://profiles.wordpress.org/marcinmik)
-* Russian (ру́сский), kindly drawn up by [dmitriynn](https://profiles.wordpress.org/dmitriynn)
-* Turkish (Türkçe), kindly drawn up by [Mehmet HAKAN](https://profiles.wordpress.org/memomelo)
-
-Further translations are welcome. If you want to give in your translation please leave a notice in the [plugin's support forum](https://wordpress.org/support/plugin/recent-posts-widget-with-thumbnails).
+Starting from version 7.1.0 the handling for translations are moved to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/recent-posts-widget-with-thumbnails/).
+Please help to translate into more languages or you can re-work on the current translations, if you think it's needed.
+If you have done your translation please leave a comment in the [plugin's support forum](https://wordpress.org/support/plugin/recent-posts-widget-with-thumbnails). I'll take care of the review and approval.
 
 == Installation ==
 
@@ -170,7 +162,7 @@ Further translations are welcome. If you want to give in your translation please
 2. Search for 'Recent Posts Widget With Thumbnails'
 3. Click 'Install Now'
 4. Activate the plugin on the Plugin dashboard
-5. Go to 'Appereance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
+5. Go to 'Appearance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
 
 = Uploading in WordPress Dashboard =
 
@@ -179,7 +171,7 @@ Further translations are welcome. If you want to give in your translation please
 3. Select `recent-posts-widget-with-thumbnails.zip` from your computer
 4. Click 'Install Now'
 5. Activate the plugin in the Plugin dashboard
-6. Go to 'Appereance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
+6. Go to 'Appearance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
 
 = Using FTP =
 
@@ -187,7 +179,7 @@ Further translations are welcome. If you want to give in your translation please
 2. Extract the `recent-posts-widget-with-thumbnails` directory to your computer
 3. Upload the `recent-posts-widget-with-thumbnails` directory to the `/wp-content/plugins/` directory
 4. Activate the plugin in the Plugin dashboard
-5. Go to 'Appereance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
+5. Go to 'Appearance' => 'Widgets' and select 'Recent Posts Widget With Thumbnails'
 
 == Frequently Asked Questions ==
 
@@ -225,7 +217,8 @@ If there is no text in the "Excerpt" box the plugin tries to build an excerpt vi
 
 = Where is the *.pot file for translating the plugin in any language? =
 
-If you want to contribute a translation of the plugin in your language it would be great! You would find the *.pot file in the 'languages' directory of this plugin. If you would send the *.po file to me I would include it in the next release of the plugin.
+There is not pot file coming anymore with the plugin. With version 7.1 the translation was moved to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/recent-posts-widget-with-thumbnails/).
+If you want to contribute a translation of the plugin in your language it would be great!
 
 == Screenshots ==
 
@@ -233,6 +226,60 @@ If you want to contribute a translation of the plugin in your language it would 
 2. The second screenshot shows the widget on the Widget Management Page in the backend.
 
 == Changelog ==
+
+= 7.1.1 =
+* Restored PHP 5.x support
+
+= 7.1.0 =
+* Added feature for post order and sorting (feature request: https://wordpress.org/support/topic/sort-posts-by-title/)
+* Added class `.rpwwt-post-excerpt-more` for the "more" text following the excerpt. (feature request: https://wordpress.org/support/topic/class-for-more-sign/)
+* Dropped PHP 5 support
+* Moved language files to [translate.wordpress.org](https://translate.wordpress.org/projects/wp-plugins/recent-posts-widget-with-thumbnails/). So, please contribute as a translator to make Recent Posts Widget With Thumbnails available in more and more languages.
+* Compatibility with WordPress 5.8
+
+= 7.0.3 =
+* new branding
+* Tested successfully with WordPress 5.6.2
+
+= 7.0.2 =
+* Corrected comments in uninstall.php
+* Tested successfully with WordPress 5.6
+
+= 7.0.1 =
+* Added catalan translation, thanks to Ibidem Group
+* Tested successfully with WordPress 5.5.3
+
+= 7.0.0 =
+* Added option for omitting all alternative texts of images to improve accessibility
+* Added ARIA attribute for the list item of the current page to improve accessibility
+* Revised output if the post has no title
+* Revised thumbnail display functions
+* Improved description for the default alternative text
+* Updated *.pot file and translations
+* Updated screenshot of the widget form
+
+= 6.9.0 =
+* Added option for the alt text of the default thumbnail
+* Updated *.pot file and translations
+* Updated screenshot of the widget form
+
+= 6.8.0 =
+* Added option for the author name (please set a label if you have activated author names)
+* Added placeholders for the text fields
+* Updated *.pot file and translations
+* Tested successfully with WordPress 5.5.1
+* Updated screenshot of the widget form
+
+= 6.7.1 =
+* Added NAV element around the post list if the theme supports the 'navigation-widgets' type (introduced in WP 5.5)
+* Added aria-label to the NAV element for better accessibility
+* Added loading=”lazy” attribute to the default image (introduced in WP 5.5)
+* Tested successfully with WordPress 5.5
+
+= 6.7.0 =
+* Added new hook for developers 'rpwwt_categories' to modify the category list of each list item
+* Added spanish translation
+* Tested successfully with WordPress 5.3.2
 
 = 6.6.1 =
 * Tested successfully with WordPress 5.3
@@ -379,7 +426,6 @@ If you want to contribute a translation of the plugin in your language it would 
 * Added polish translation. Thank you very much, [Marcin Mikolajczyk](https://profiles.wordpress.org/marcinmik)
 * Improved: Manual excerpts are taken unchanged ("as is")
 * I18n description in the backend's plugin list
-* Added link to more versatile plugin [Ultimate Post List Pro](https://shop.stehle-internet.de/downloads/ultimate-post-list-pro/)
 * Tested successfully with WordPress 4.5
 * Updated *.pot file and translations
 
@@ -535,6 +581,39 @@ Successfully tested with WordPress 4.0
 * The plugin was released.
 
 == Upgrade Notice ==
+
+= 7.1.1 =
+This version needs at least PHP 7 or above.
+
+= 7.1.0 =
+New feature for post order and sorting.
+Moving languages to GlotPress.
+Compatibility with WordPress 5.8
+
+= 7.0.3 =
+Added new branding
+
+= 7.0.2 =
+Tested successfully with WordPress 5.6.2
+Tested successfully with WordPress 5.7
+
+= 7.0.1 =
+Added catalan translation, tested with WordPress 5.5.3
+
+= 7.0.0 =
+Added accessibility improvements
+
+= 6.9.0 =
+Added option for the alt text of the default thumbnail
+
+= 6.8.0 =
+Added option for the author name (please set a label if you have activated author names)
+
+= 6.7.1 =
+Added NAV element around the post list, loading=lazy attribute to the default image, tested with WordPress 5.5
+
+= 6.7.0 =
+Added hook rpwwt_categories and spanish translation, tested with WordPress 5.3.2
 
 = 6.6.1 =
 Tested successfully with WordPress 5.3

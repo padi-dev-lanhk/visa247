@@ -52,14 +52,13 @@ class MC4WP_Integration_Admin {
 	 *
 	 * @return void
 	 */
-	public function enqueue_assets( $suffix, $page = '' ) {
-
+	public function enqueue_assets( $suffix, $page ) {
 		// only load on integrations pages
 		if ( $page !== 'integrations' ) {
 			return;
 		}
 
-		wp_register_script( 'mc4wp-integrations-admin', MC4WP_PLUGIN_URL . 'assets/js/integrations-admin' . $suffix . '.js', array( 'mc4wp-admin' ), MC4WP_VERSION, true );
+		wp_register_script( 'mc4wp-integrations-admin', mc4wp_plugin_url( 'assets/js/integrations-admin.js' ), array( 'mc4wp-admin' ), MC4WP_VERSION, true );
 		wp_enqueue_script( 'mc4wp-integrations-admin' );
 	}
 
@@ -70,8 +69,8 @@ class MC4WP_Integration_Admin {
 	 */
 	public function add_menu_item( $items ) {
 		$items[] = array(
-			'title'    => __( 'Integrations', 'mailchimp-for-wp' ),
-			'text'     => __( 'Integrations', 'mailchimp-for-wp' ),
+			'title'    => esc_html__( 'Integrations', 'mailchimp-for-wp' ),
+			'text'     => esc_html__( 'Integrations', 'mailchimp-for-wp' ),
 			'slug'     => 'integrations',
 			'callback' => array( $this, 'show_integrations_page' ),
 			'position' => 20,
@@ -139,6 +138,11 @@ class MC4WP_Integration_Admin {
 			$settings['lists'] = array();
 		}
 
+		$settings['label'] = strip_tags( $settings['label'], '<strong><b><br><a><script><u><em><i><span><img>' );
+		if ( ! current_user_can( 'unfiltered_html' ) ) {
+			$settings['label'] = mc4wp_kses( $settings['label'] );
+		}
+
 		return $settings;
 	}
 
@@ -159,7 +163,7 @@ class MC4WP_Integration_Admin {
 		// get all integrations but remove enabled integrations from the resulting array
 		$integrations = $this->integrations->get_all();
 
-		require dirname( __FILE__ ) . '/views/integrations.php';
+		require __DIR__ . '/views/integrations.php';
 	}
 
 	/**
@@ -179,6 +183,6 @@ class MC4WP_Integration_Admin {
 		$mailchimp = new MC4WP_MailChimp();
 		$lists     = $mailchimp->get_lists();
 
-		require dirname( __FILE__ ) . '/views/integration-settings.php';
+		require __DIR__ . '/views/integration-settings.php';
 	}
 }

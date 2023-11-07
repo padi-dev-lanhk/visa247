@@ -2,10 +2,10 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @package   Purify_WordPress_Menus
- * @author    Martin Stehle <shop@stehle-internet.de>
+ * @package   Recent_Posts_Widget_With_Thumbnails
+ * @author    Kybernetik Services <wordpress@kybernetik.com.de>
  * @license   GPL-2.0+
- * @link      http://wordpress.org/plugins/purify-wp-menues/
+ * @link      https://wordpress.org/plugins/recent-posts-widget-with-thumbnails/
  * @copyright 2014 
  */
 

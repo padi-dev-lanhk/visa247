@@ -10,45 +10,77 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 	 */
 	private $queued_urls = array();
 	private $queued_groups = array();
+	private $queued_post_ids = array();
 	private $flush_all_operation_requested = false;
+	private $debug_purge = false;
 
 	public function __construct() {
 		parent::__construct();
+		$this->debug_purge = $this->_config->get_boolean( 'pgcache.debug_purge' );
 	}
 
 	/**
 	 * Flushes all caches
 	 */
 	public function flush() {
+		if ( $this->debug_purge ) {
+			Util_Debug::log_purge( 'pagecache', 'flush_all' );
+		}
+
 		$this->flush_all_operation_requested = true;
 		return true;
 	}
 
 	public function flush_group( $group ) {
+		if ( $this->debug_purge ) {
+			Util_Debug::log_purge( 'pagecache', 'flush_group', $group );
+		}
+
 		$this->queued_groups[$group] = '*';
 	}
 
 	/**
 	 * Flushes post cache
 	 *
-	 * @param integer $post_id
+	 * @param integer $post_id Post ID.
+	 * @param boolean $force   Force flag (optional).
 	 */
-	public function flush_post( $post_id = null ) {
+	public function flush_post( $post_id = null, $force = false ) {
 		if ( !$post_id ) {
 			$post_id = Util_Environment::detect_post_id();
 		}
 
-		if ( !$post_id )
-			return false;
-
-		global $wp_rewrite;   // required by many Util_PageUrls methods
-		if ( empty( $wp_rewrite ) ) {
-			error_log('Post was modified before wp_rewrite initialization. Cant flush cache.');
+		if ( !$post_id ) {
 			return false;
 		}
 
+		global $wp_rewrite;   // required by many Util_PageUrls methods
+		if ( empty( $wp_rewrite ) ) {
+			if ( $this->debug_purge ) {
+				Util_Debug::log_purge( 'pagecache', 'flush_post', array(
+					'post_id' => $post_id,
+					'error' => 'Post flush attempt before wp_rewrite initialization. Cant flush cache.'
+				) );
+			}
+
+			error_log('Post flush attempt before wp_rewrite initialization. Cant flush cache.');
+			return false;
+		}
+
+		// prevent multiple calculation of post urls
+		$queued_post_id_key = Util_Environment::blog_id() . '.' . $post_id;
+		if ( isset( $this->queued_post_ids[$queued_post_id_key] ) ) {
+			return true;
+		}
+		$this->queued_post_ids[$queued_post_id_key] = '*';
+
+		// calculate urls to purge
 		$full_urls = array();
 		$post = get_post( $post_id );
+		if ( empty( $post ) ) {
+			return true;
+		}
+		$is_cpt = Util_Environment::is_custom_post_type( $post );
 		$terms = array();
 
 		$feeds = $this->_config->get_array( 'pgcache.purge.feed.types' );
@@ -75,15 +107,25 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 				Util_PageUrls::get_frontpage_urls( $limit_post_pages ) );
 		}
 
+		// pgcache.purge.home becomes "Posts page" option in settings if home page and blog are set to page(s)
 		// Home (Post page) URL
 		if ( $this->_config->get_boolean( 'pgcache.purge.home' ) &&
-			$front_page != 'posts' ) {
+			$front_page != 'posts' &&
+			!$is_cpt ) {
 			$full_urls = array_merge( $full_urls,
 				Util_PageUrls::get_postpage_urls( $limit_post_pages ) );
 		}
 
+		// pgcache.purge.home becomes "Posts page" option in settings if home page and blog are set to page(s)
+		// Custom Post Type Archive URL
+		if ( $this->_config->get_boolean( 'pgcache.purge.home' ) &&
+			$is_cpt ) {
+			$full_urls = array_merge( $full_urls,
+				Util_PageUrls::get_cpt_archive_urls( $post_id, $limit_post_pages ) );
+		}
+
 		// Post URL
-		if ( $this->_config->get_boolean( 'pgcache.purge.post' ) ) {
+		if ( $this->_config->get_boolean( 'pgcache.purge.post' ) || $force ) {
 			$full_urls = array_merge( $full_urls,
 				Util_PageUrls::get_post_urls( $post_id ) );
 		}
@@ -126,10 +168,18 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 				Util_PageUrls::get_yearly_archive_urls( $post, $limit_post_pages ) );
 		}
 
-		// Feed URLs
-		if ( $this->_config->get_boolean( 'pgcache.purge.feed.blog' ) ) {
+		// Feed URLs for posts
+		if ( $this->_config->get_boolean( 'pgcache.purge.feed.blog' ) &&
+		!$is_cpt ) {
 			$full_urls = array_merge( $full_urls,
 				Util_PageUrls::get_feed_urls( $feeds, null ) );
+		}
+
+		// Feed URLs for posts
+		if ( $this->_config->get_boolean( 'pgcache.purge.feed.blog' ) &&
+		$is_cpt ) {
+			$full_urls = array_merge( $full_urls,
+				Util_PageUrls::get_feed_urls( $feeds, $post->post_type ) );
 		}
 
 		if ( $this->_config->get_boolean( 'pgcache.purge.feed.comments' ) ) {
@@ -159,6 +209,11 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 		$full_urls = apply_filters( 'pgcache_flush_post_queued_urls',
 			$full_urls );
 
+		if ( $this->debug_purge ) {
+			Util_Debug::log_purge( 'pagecache', 'flush_post', $post_id,
+				$full_urls );
+		}
+
 		// Queue flush
 		if ( count( $full_urls ) ) {
 			foreach ( $full_urls as $url )
@@ -176,6 +231,11 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 		$uri = ( isset( $parts['path'] ) ? $parts['path'] : '' ) .
 			( isset( $parts['query'] ) ? '?' . $parts['query'] : '' );
 		$group = $this->get_cache_group_by_uri( $uri );
+
+		if ( $this->debug_purge ) {
+			Util_Debug::log_purge( 'pagecache', 'flush_url', array(
+				$url, $group ) );
+		}
 
 		$this->queued_urls[$url] = ( empty( $group ) ? '*' : $group );
 	}
@@ -265,6 +325,10 @@ class PgCache_Flush extends PgCache_ContentGrabber {
 	 */
 	private function _flush_url( $url, $cache, $mobile_groups, $referrer_groups,
 		$cookies, $encryptions, $compressions, $group ) {
+		if ( empty( $url ) ) {
+			return;
+		}
+
 		foreach ( $mobile_groups as $mobile_group ) {
 			foreach ( $referrer_groups as $referrer_group ) {
 				foreach ( $cookies as $cookie ) {

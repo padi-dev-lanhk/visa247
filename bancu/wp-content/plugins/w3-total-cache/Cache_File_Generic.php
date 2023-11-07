@@ -44,7 +44,7 @@ class Cache_File_Generic extends Cache_File {
 		$dir = dirname( $path );
 
 		if ( !@is_dir( $dir ) ) {
-			if ( !Util_File::mkdir_from_safe( $dir, W3TC_CACHE_DIR ) )
+			if ( !Util_File::mkdir_from_safe( $dir, dirname( W3TC_CACHE_DIR ) ) )
 				return false;
 		}
 
@@ -202,6 +202,16 @@ class Cache_File_Generic extends Cache_File {
 	private function _read( $path ) {
 		if ( !is_readable( $path ) )
 			return null;
+
+		// make sure reading from cache folder
+		// canonicalize to avoid unexpected variants
+		$base_path = realpath( $this->_cache_dir );
+		$path = realpath( $path );
+
+		if ( strlen( $base_path ) <= 0 ||
+				substr( $path, 0, strlen( $base_path ) ) != $base_path ) {
+			return null;
+		}
 
 		$fp = @fopen( $path, 'rb' );
 		if ( !$fp )

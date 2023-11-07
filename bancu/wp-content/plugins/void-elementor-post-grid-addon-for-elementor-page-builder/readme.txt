@@ -1,9 +1,9 @@
 === Void Elementor Post Grid Addon for Elementor Page builder ===
 Contributors: voidthemes,voidcoders
-Tags: page-builder, elementor, grid-builder, list-post, post-grid
-Requires at least: 4.4
-Tested up to: 5.1
-Stable tag: 2.0
+Tags: page-builder, elementor, grid-builder, list-post, post-grid, addons, elementor addons, elementor widget
+Requires at least: 4.9
+Tested up to: 5.9.3
+Stable tag: 2.1.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,18 +31,19 @@ Post Grid Styles:
 5. First Big post then list
 
 Controls:
-1. Filter with general post or Custom post type
-2. Filter Custom taxonomy (all category/tags or your desired custom made category, i.e: taxanomy=portfolio-category )
-3. Filter Custom terms (i.e: which category)
-4. Number of posts
-5. Post Offset to skip first (x) posts
-6. Order by
-7. 3 image styles for featured images to show up
-8. Sticky control
-9. Pagination
-10. Exclude / Include with category ID.
-11. Image Size Select Option
-12. Select to show all post/with only featured image/without featured image only.
+1. Filter/ Shuffle button for showing posts by terms.
+2. Query with general post or Custom post type
+3. Query Custom taxonomy (all category/tags or your desired custom made category, i.e: taxanomy=portfolio-category )
+4. Query Custom terms (i.e: which category)
+5. Number of posts
+6. Post Offset to skip first (x) posts
+7. Order by
+8. 3 image styles for featured images to show up
+9. Sticky control
+10. Pagination
+11. Exclude / Include with category ID.
+12. Image Size Select Option
+13. Select to show all post/with only featured image/without featured image only.
 
 Note: This plugin is an addon of Elementor Page Builder (https://wordpress.org/plugins/elementor/) and will only work with Elementor Page Builder installed. And your elementor should be up to date to latest version
 
@@ -73,6 +74,36 @@ Our Void Elementor Post Grid adds a new section in the elementor live page build
 
 
 == Changelog ==
+= 2.1.10 =
+* Fix: Elementor compatiability added.
+= 2.1.9 =
+* Fix: Elementor compatiability added.
+* Fix: Removed un-used php files as reported
+= 2.1.8 =
+* Fix: Elementor compatiability added.
+= 2.1.7 =
+* Fix: Elementor compatiability added.
+= 2.1.6 =
+* Fix: Pagination issue solved.
+= 2.1.5 =
+* Fix: Translation issue solved.
+= 2.1.4 =
+* Fix: Improve database migration. solve the maximum issue regarding this.
+= 2.1.3 =
+* Added: Typography controller for title, excerpt, meta, etc.
+* Fix: Data updater widget vanish issue solved.
+* Fix: Some issue fix and improve functionalities.
+= 2.1.2 =
+* Fix: Compatiable with elementor 3.x.
+* Fix: Fix some js error with new version of wp and elementor.
+= 2.1.1 =
+* Fix: Editor panel data loose issue after comeback another control sections/ widgets.
+* Fix: Improved performance and optimize codes.
+= 2.1 =
+* Added: Mutliple terms query with elementor repeater.
+* Added: New stylish modern design layout.
+* Added: Able to filter/ shuffle posts by terms.
+* Fix: Archive page query and pagination.
 = 1.0.9 =
 Added option for image size selection
 Improved UI 

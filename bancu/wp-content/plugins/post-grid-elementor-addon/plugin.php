@@ -76,7 +76,7 @@ class Elementor_Post_Grid_Main {
 		$this->include_widgets_files();
 
 		// Register Widgets
-		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Elementor_Post_Grid_Widget() );
+		\Elementor\Plugin::instance()->widgets_manager->register( new Widgets\Elementor_Post_Grid_Widget() );
 	}
 
 	public function register_widget_category( $elements_manager ) {
@@ -84,12 +84,37 @@ class Elementor_Post_Grid_Main {
 		$elements_manager->add_category(
 			'wpcap-items',
 			[
-				'title' => __( 'WPCap Elements', 'post-grid-elementor-addon' ),
+				'title' => __( 'WPC Elements', 'post-grid-elementor-addon' ),
 				'icon' => 'fa fa-plug',
 			]
 		);
-
 	}
+
+	/**
+	 * Add action links to the plugins page.
+	 *
+	 * @since 2.0.3
+	 *
+	 * @param array $links Links.
+	 */
+	public function add_action_links( $links ) {
+	  $output =  array_merge(
+	    array(
+	      'welcome' => '<a href="' . esc_url( admin_url( 'admin.php?page=pgea-welcome' ) ) . '">' . esc_html__( 'Welcome', 'post-grid-elementor-addon' ) . '</a>',
+	    ),
+	    $links
+	  );
+
+	  $output = array_merge(
+	  	$output,
+	    array(
+	      'go-pro' => '<a href="https://wpconcern.com/plugins/post-grid-elementor-addon/" target="_blank" style="font-weight:700;">' . esc_html__( 'Go Pro', 'post-grid-elementor-addon' ) . '</a>',
+	    )
+	  );
+
+	  return $output;
+	}
+
 
 	/**
 	 *  Plugin class constructor
@@ -105,9 +130,12 @@ class Elementor_Post_Grid_Main {
 		add_action( 'elementor/frontend/after_enqueue_styles', [ $this, 'widget_styles' ] );
 
 		// Register widgets
-		add_action( 'elementor/widgets/widgets_registered', [ $this, 'register_widgets' ] );
+		add_action( 'elementor/widgets/register', [ $this, 'register_widgets' ] );
 
 		add_action( 'elementor/elements/categories_registered', [ $this, 'register_widget_category' ] );
+
+		// Add an action links.
+		add_filter( 'plugin_action_links_' . plugin_basename(__DIR__) . '/post-grid-elementor-addon.php', [ $this, 'add_action_links' ] );
 	}
 }
 

@@ -48,10 +48,10 @@ class MC4WP_Admin_Ads {
 	 * Add text row to "Form > Appearance" tab.
 	 */
 	public function after_form_appearance_settings_rows() {
-		echo '<tr valign="top">';
+		echo '<tr>';
 		echo '<td colspan="2">';
-		echo '<p class="help">';
-		echo sprintf( __( 'Want to customize the style of your form? <a href="%s">Try our Styles Builder</a> & edit the look of your forms with just a few clicks.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
+		echo '<p class="description">';
+		echo sprintf( __( 'Want to customize the style of your form? <a href="%s">Try our Styles Builder</a> & edit the look of your forms with just a few clicks.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
 		echo '</p>';
 		echo '</td>';
 		echo '</tr>';
@@ -61,14 +61,14 @@ class MC4WP_Admin_Ads {
 	 * Add text row to "Form > Settings" tab.
 	 */
 	public function after_form_settings_rows() {
-		echo '<tr valign="top">';
+		echo '<tr>';
 		echo '<td colspan="2">';
-		echo '<p class="help">';
+		echo '<p class="description">';
 
 		if ( rand( 1, 2 ) === 1 ) {
-			echo sprintf( __( 'Be notified whenever someone subscribes? <a href="%s">Mailchimp for WordPress Premium</a> allows you to set up email notifications for your forms.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' );
+			echo sprintf( __( 'Be notified whenever someone subscribes? <a href="%s">Mailchimp for WordPress Premium</a> allows you to set up email notifications for your forms.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' );
 		} else {
-			echo sprintf( __( 'Increased conversions? <a href="%s">Mailchimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better experience for your visitors.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
+			echo sprintf( __( 'Increased conversions? <a href="%s">Mailchimp for WordPress Premium</a> submits forms without reloading the entire page, resulting in a much better experience for your visitors.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=form-settings-link' );
 		}
 
 		echo '</p>';
@@ -82,7 +82,7 @@ class MC4WP_Admin_Ads {
 	 * @return array
 	 */
 	public function plugin_meta_links( $links ) {
-		$links[] = '<a href="https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to Premium', 'mailchimp-for-wp' ) . '</a>';
+		$links[] = '<a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=plugins-upgrade-link">' . __( 'Upgrade to Premium', 'mailchimp-for-wp' ) . '</a>';
 		return $links;
 	}
 
@@ -94,81 +94,64 @@ class MC4WP_Admin_Ads {
 
 			// WPML & Polylang specific message
 			if ( defined( 'ICL_LANGUAGE_CODE' ) ) {
-				echo '<p class="help">' . sprintf( __( 'Do you want translated forms for all of your languages? <a href="%s">Try Mailchimp for WordPress Premium</a>, which does just that plus more.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
+				echo '<p class="description">' . sprintf( __( 'Do you want translated forms for all of your languages? <a href="%s">Try Mailchimp for WordPress Premium</a>, which does just that plus more.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
 				return;
 			}
 
 			// General "edit form" message
-			echo '<p class="help">' . sprintf( __( 'Do you want to create more than one form? Our Premium add-on does just that! <a href="%s">Have a look at all Premium benefits</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
+			echo '<p class="description">' . sprintf( __( 'Do you want to create more than one form? Our Premium add-on does just that! <a href="%s">Have a look at all Premium benefits</a>.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
 			return;
 		}
 
 		// General message
-		echo '<p class="help">' . sprintf( __( 'Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href="%s">Find out about all benefits now</a>.', 'mailchimp-for-wp' ), 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
+		echo '<p class="description">' . sprintf( __( 'Are you enjoying this plugin? The Premium add-on unlocks several powerful features. <a href="%s">Find out about all benefits now</a>.', 'mailchimp-for-wp' ), 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=footer-link' ) . '</p>';
 	}
 
 	/**
 	 * Add email opt-in form to sidebar
 	 */
 	public function admin_sidebar() {
+		echo '<style>.mc4wp-premium-box {
+  background: #fff8c5;
+  border: 1px solid #d4a72c66;
+  padding: 1em;
+}</style>';
 		echo '<div class="mc4wp-box">';
-		echo '<div style="border: 5px dotted #cc4444; padding: 0 20px; background: white;">';
+		echo '<div class="mc4wp-premium-box">';
 		echo '<h3>Mailchimp for WordPress Premium</h3>';
-		echo '<p>This plugin has a Premium add-on, unlocking several powerful features. <a href="https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
+		echo '<p>';
+		echo 'You are currently using the free version of Mailchimp for WordPress. ';
+		echo 'Did you know there is a Premium add-on? ';
+		echo '</p>';
+		echo '<p>';
+		echo 'It adds several powerful features like multiple and improved forms, e-commerce integration and storing sign-up attempts in your local database.';
+		echo '</p>';
+		echo '<p><a href="https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=upgrade-box">Have a look at its benefits</a>!</p>';
 		echo '</div>';
-		echo '</div>'; ?>
-		<div class="mc4wp-box" id="mc4wp-optin-box">
-
-			<?php $user = wp_get_current_user(); ?>
-			<!-- Begin Mailchimp Signup Form -->
-			<div id="mc_embed_signup">
-				<h4 class="mc4wp-title"><?php _e( 'More subscribers, better newsletters.', 'mailchimp-for-wp' ); ?></h4>
-				<p><?php _e( 'Learn how to best grow your lists & write better emails by subscribing to our monthly tips.', 'mailchimp-for-wp' ); ?></p>
-				<form action="//mc4wp.us1.list-manage.com/subscribe/post?u=a2d08947dcd3683512ce174c5&amp;id=a940232df9" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
-					<p>
-						<label for="mc4wp-email"><?php _e( 'Email Address', 'mailchimp-for-wp' ); ?></label>
-						<input type="email" value="<?php echo esc_attr( $user->user_email ); ?>" name="EMAIL" class="regular-text" id="mc4wp-email" required>
-					</p>
-					<p>
-						<label for="mc4wp-fname"><?php _e( 'First Name', 'mailchimp-for-wp' ); ?></label>
-						<input type="text" value="<?php echo esc_attr( $user->user_firstname ); ?>" name="FNAME" class="regular-text" id="mc4wp-fname">
-					</p>
-					<div style="position: absolute; left: -5000px;">
-						<input type="text" name="b_a2d08947dcd3683512ce174c5_a940232df9" tabindex="-1" value="" autocomplete="off" />
-					</div>
-					<p>
-						<input type="submit" value="<?php esc_attr_e( 'Subscribe', 'mailchimp-for-wp' ); ?>" name="subscribe" class="button">
-					</p>
-
-					<input type="hidden" name="SOURCE" value="free-plugin" />
-				</form>
-			</div>
-		</div>
-		<?php
+		echo '</div>';
 	}
 
 	/**
 	 * Show notice about E-Commerce integration in Premium.
 	 */
 	public function ecommerce() {
-
 		// detect whether WooCommerce is installed & activated.
 		if ( ! class_exists( 'WooCommerce' ) ) {
 			return;
 		}
 
-		echo '<div class="medium-margin">';
+		echo '<div class="mc4wp-margin-m">';
 		echo '<h3>Advanced WooCommerce integration for Mailchimp</h3>';
 		echo '<p>';
 		echo __( 'Do you want to track all WooCommerce orders in Mailchimp so you can send emails based on the purchase activity of your subscribers?', 'mailchimp-for-wp' );
 		echo '</p>';
 		echo '<p>';
-		echo sprintf( __( '<a href="%1$s">Upgrade to Mailchimp for WordPress Premium</a> or <a href="%2$s">read more about Mailchimp\'s E-Commerce features</a>.', 'mailchimp-for-wp' ) . '</p>', 'https://mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://kb.mc4wp.com/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
+		echo sprintf( __( '<a href="%1$s">Upgrade to Mailchimp for WordPress Premium</a> or <a href="%2$s">read more about Mailchimp\'s E-Commerce features</a>.', 'mailchimp-for-wp' ) . '</p>', 'https://www.mc4wp.com/premium-features/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link', 'https://www.mc4wp.com/kb/what-is-ecommerce360/#utm_source=wp-plugin&utm_medium=mailchimp-for-wp&utm_campaign=other-settings-link' );
 		echo '</p>';
 		echo '</div>';
 	}
 
 	public function show_extensions_page() {
-		require MC4WP_PLUGIN_DIR . 'includes/views/extensions.php';
+		require MC4WP_PLUGIN_DIR . '/includes/views/extensions.php';
 	}
 }

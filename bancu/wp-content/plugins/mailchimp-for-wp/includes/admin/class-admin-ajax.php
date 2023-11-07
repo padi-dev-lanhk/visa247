@@ -2,7 +2,6 @@
 
 class MC4WP_Admin_Ajax {
 
-
 	/**
 	 * @var MC4WP_Admin_Tools
 	 */
@@ -30,8 +29,11 @@ class MC4WP_Admin_Ajax {
 	 */
 	public function refresh_mailchimp_lists() {
 		if ( ! $this->tools->is_user_authorized() ) {
-			wp_send_json( false );
+			wp_send_json_error();
+			return;
 		}
+
+		check_ajax_referer( 'mc4wp-ajax' );
 
 		$mailchimp = new MC4WP_MailChimp();
 		$success   = $mailchimp->refresh_lists();
@@ -43,18 +45,31 @@ class MC4WP_Admin_Ajax {
 	 * @throws MC4WP_API_Exception
 	 */
 	public function get_list_details() {
+		if ( ! $this->tools->is_user_authorized() ) {
+			wp_send_json_error();
+			return;
+		}
+
 		$list_ids  = (array) explode( ',', $_GET['ids'] );
 		$data      = array();
 		$mailchimp = new MC4WP_MailChimp();
 		foreach ( $list_ids as $list_id ) {
-			$merge_fields        = $mailchimp->get_list_merge_fields( $list_id );
-			$interest_categories = $mailchimp->get_list_interest_categories( $list_id );
-			$data[]              = (object) array(
+			$data[] = (object) array(
 				'id'                  => $list_id,
-				'merge_fields'        => $merge_fields,
-				'interest_categories' => $interest_categories,
+				'merge_fields'        => $mailchimp->get_list_merge_fields( $list_id ),
+				'interest_categories' => $mailchimp->get_list_interest_categories( $list_id ),
+				'marketing_permissions' => $mailchimp->get_list_marketing_permissions( $list_id ),
 			);
 		}
-		wp_send_json( $data );
+
+		if ( isset( $_GET['format'] ) && $_GET['format'] === 'html' ) {
+			$merge_fields = $data[0]->merge_fields;
+			$interest_categories = $data[0]->interest_categories;
+			$marketing_permissions = $data[0]->marketing_permissions;
+			require MC4WP_PLUGIN_DIR . '/includes/views/parts/lists-overview-details.php';
+		} else {
+			wp_send_json( $data );
+		}
+		exit;
 	}
 }

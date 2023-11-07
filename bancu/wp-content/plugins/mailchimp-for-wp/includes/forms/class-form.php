@@ -19,6 +19,15 @@ class MC4WP_Form {
 	public static $instances = array();
 
 	/**
+	 * @param int $post_id
+	 * @throws Exception
+	 */
+	public static function throw_not_found_exception( $post_id ) {
+		$message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $post_id );
+		throw new Exception( $message );
+	}
+
+	/**
 	 * Get a shared form instance.
 	 *
 	 * @param WP_Post|int $post Post instance or post ID.
@@ -29,11 +38,15 @@ class MC4WP_Form {
 		if ( $post instanceof WP_Post ) {
 			$post_id = $post->ID;
 		} else {
-			$post_id = absint( $post );
+			$post_id = (int) $post;
 
 			if ( $post_id === 0 ) {
 				$post_id = (int) get_option( 'mc4wp_default_form_id', 0 );
 			}
+		}
+
+		if ( $post_id === 0 ) {
+			self::throw_not_found_exception( $post_id );
 		}
 
 		if ( isset( self::$instances[ $post_id ] ) ) {
@@ -47,8 +60,7 @@ class MC4WP_Form {
 
 		// check post object
 		if ( ! $post instanceof WP_Post || $post->post_type !== 'mc4wp-form' ) {
-			$message = sprintf( __( 'There is no form with ID %d, perhaps it was deleted?', 'mailchimp-for-wp' ), $post_id );
-			throw new Exception( $message );
+			self::throw_not_found_exception( $post_id );
 		}
 
 		// get all post meta in single call for performance
@@ -208,7 +220,7 @@ class MC4WP_Form {
 	 */
 	protected function load_settings( array $post_meta = array() ) {
 		$form             = $this;
-		$default_settings = include MC4WP_PLUGIN_DIR . 'config/default-form-settings.php';
+		$default_settings = include MC4WP_PLUGIN_DIR . '/config/default-form-settings.php';
 
 		// start with defaults
 		$settings = $default_settings;
@@ -248,7 +260,7 @@ class MC4WP_Form {
 		$form = $this;
 
 		// get default messages
-		$default_messages = include MC4WP_PLUGIN_DIR . 'config/default-form-messages.php';
+		$default_messages = include MC4WP_PLUGIN_DIR . '/config/default-form-messages.php';
 
 		// start with default messages
 		$messages = $default_messages;
@@ -401,15 +413,6 @@ class MC4WP_Form {
 		 */
 		$errors = (array) apply_filters( 'mc4wp_form_errors', $errors, $form );
 
-		/**
-		 * @ignore
-		 * @deprecated 3.0 Use `mc4wp_form_errors` instead
-		 */
-		$form_validity = apply_filters( 'mc4wp_valid_form_request', true, $this->data );
-		if ( is_string( $form_validity ) ) {
-			$errors[] = $form_validity;
-		}
-
 		// filter out all non-string values
 		$errors = array_filter( $errors, 'is_string' );
 
@@ -535,7 +538,7 @@ class MC4WP_Form {
 	}
 
 	/**
-	 * Get Mailchimp lists this form subscribes to
+	 * Get ID's of Mailchimp lists this form subscribes to
 	 *
 	 * @return array
 	 */
@@ -720,28 +723,6 @@ class MC4WP_Form {
 		}
 
 		return $message;
-	}
-
-	/**
-	 * Get HTML string for a message, including wrapper element.
-	 *
-	 * @deprecated 3.1
-	 *
-	 * @param string $key
-	 *
-	 * @return string
-	 */
-	public function get_message_html( $key ) {
-		_deprecated_function( __METHOD__, '3.2' );
-		return '';
-	}
-
-	/**
-	* Add a notice to this form
-	*/
-	public function add_message( $key ) {
-		_deprecated_function( __METHOD__, '3.3' );
-		$this->add_notice( $this->get_message( $key ) );
 	}
 
 	/**

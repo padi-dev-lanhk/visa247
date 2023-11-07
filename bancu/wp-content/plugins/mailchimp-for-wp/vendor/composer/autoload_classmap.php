@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'MC4WP_API' => $baseDir . '/includes/api/class-api.php',
+    'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'MC4WP_API_Connection_Exception' => $baseDir . '/includes/api/class-connection-exception.php',
     'MC4WP_API_Exception' => $baseDir . '/includes/api/class-exception.php',
     'MC4WP_API_Resource_Not_Found_Exception' => $baseDir . '/includes/api/class-resource-not-found-exception.php',
@@ -33,6 +33,7 @@ return array(
     'MC4WP_Field_Formatter' => $baseDir . '/includes/class-field-formatter.php',
     'MC4WP_Field_Guesser' => $baseDir . '/includes/class-field-guesser.php',
     'MC4WP_Form' => $baseDir . '/includes/forms/class-form.php',
+    'MC4WP_Form_AMP' => $baseDir . '/includes/forms/class-form-amp.php',
     'MC4WP_Form_Asset_Manager' => $baseDir . '/includes/forms/class-asset-manager.php',
     'MC4WP_Form_Element' => $baseDir . '/includes/forms/class-form-element.php',
     'MC4WP_Form_Listener' => $baseDir . '/includes/forms/class-form-listener.php',
@@ -44,7 +45,6 @@ return array(
     'MC4WP_Form_Widget' => $baseDir . '/includes/forms/class-widget.php',
     'MC4WP_Forms_Admin' => $baseDir . '/includes/forms/class-admin.php',
     'MC4WP_Give_Integration' => $baseDir . '/integrations/give/class-give.php',
-    'MC4WP_Google_Recaptcha' => $baseDir . '/includes/forms/class-google-recaptcha.php',
     'MC4WP_Gravity_Forms_Field' => $baseDir . '/integrations/gravity-forms/class-field.php',
     'MC4WP_Gravity_Forms_Integration' => $baseDir . '/integrations/gravity-forms/class-gravity-forms.php',
     'MC4WP_Integration' => $baseDir . '/includes/integrations/class-integration.php',
@@ -65,13 +65,10 @@ return array(
     'MC4WP_Queue_Job' => $baseDir . '/includes/class-queue-job.php',
     'MC4WP_Registration_Form_Integration' => $baseDir . '/integrations/wp-registration-form/class-registration-form.php',
     'MC4WP_Tools' => $baseDir . '/includes/class-tools.php',
-    'MC4WP_Update_Optin' => $baseDir . '/includes/admin/class-update-optin.php',
     'MC4WP_Upgrade_Routines' => $baseDir . '/includes/admin/class-upgrade-routines.php',
     'MC4WP_Usage_Tracking' => $baseDir . '/includes/admin/class-usage-tracking.php',
     'MC4WP_User_Integration' => $baseDir . '/includes/integrations/class-user-integration.php',
     'MC4WP_WPForms_Field' => $baseDir . '/integrations/wpforms/class-field.php',
     'MC4WP_WPForms_Integration' => $baseDir . '/integrations/wpforms/class-wpforms.php',
     'MC4WP_WooCommerce_Integration' => $baseDir . '/integrations/woocommerce/class-woocommerce.php',
-    'xrstf\\Composer52\\AutoloadGenerator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-    'xrstf\\Composer52\\Generator' => $vendorDir . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
 );

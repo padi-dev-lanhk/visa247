@@ -1,16 +1,17 @@
 <?php
 /*
-Plugin Name: Recent Posts Widget With Thumbnails
-Plugin URI:  http://wordpress.org/plugins/recent-posts-widget-with-thumbnails/
-Description: Small and fast plugin to display in the sidebar a list of linked titles and thumbnails of the most recent postings
-Version:     6.6.1
-Author:      Martin Stehle
-Author URI:  http://stehle-internet.de
-Text Domain: recent-posts-widget-with-thumbnails
-Domain Path: /languages
-License:     GPL-2.0+
-License URI: http://www.gnu.org/licenses/gpl-2.0.txt
-*/
+ * Plugin Name:       Recent Posts Widget With Thumbnails
+ * Plugin URI:        https://wordpress.org/plugins/recent-posts-widget-with-thumbnails/
+ * Description:       Small and fast plugin to display in the sidebar a list of linked titles and thumbnails of the most recent postings
+ * Version:           7.1.1
+ * Requires at least: 4.6
+ * Requires PHP:      5.2
+ * Author:            Kybernetik Services
+ * Author URI:        https://www.kybernetik-services.com/?utm_source=wordpress_org&utm_medium=plugin&utm_campaign=recent-posts-widget-with-thumbnails&utm_content=author
+ * Text Domain:       recent-posts-widget-with-thumbnails
+ * License:           GPL-2.0+
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ */
 
 /**
  * Recent_Posts_Widget_With_Thumbnails widget class
@@ -27,7 +28,10 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 	var $use_inline_css;// class wide setting, bool type
 	var $use_no_css;	// class wide setting, bool type
 
-	function __construct() {
+    // Create the widget options and such here, then call
+    // $this->WP_Widget to let wordpress know about it.
+    function __construct() {
+
 		$language_codes = explode( '_', get_locale() );
 		switch ( $language_codes[ 0 ] ) {
 			case 'ar':
@@ -58,19 +62,29 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 				$widget_name = 'Recent Posts With Thumbnails';
 				$widget_desc = 'サイトの最新の投稿を、クリック可能なタイトルとサムネイル付きで一覧表示します。';
 				break;
+			case 'ca':
+				$widget_name = 'Publicacions recents amb miniatures';
+				$widget_desc = 'Llista de les publicacions més recents del vostre lloc, amb títol i miniatures que es poden fer clic.';
+				break;
 			default:
 				$widget_name = 'Recent Posts With Thumbnails';
 				$widget_desc = 'List of your site&#8217;s most recent posts, with clickable title and thumbnails.';
 		}
+		$this->defaults[ 'author_label' ]		= __( 'By', 'recent-posts-widget-with-thumbnails' );
 		$this->defaults[ 'category_ids' ]		= array( 0 ); // selected categories
 		$this->defaults[ 'category_label' ]		= _x( 'In', 'In {categories}', 'recent-posts-widget-with-thumbnails' ); // label for category list
 		$this->defaults[ 'css_file_path' ]		= dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'public.css'; // path of the public css file
 		$this->defaults[ 'excerpt_length' ]		= absint( apply_filters( 'rpwwt_excerpt_length', 55 ) ); // default length: 55 characters
 		$this->defaults[ 'excerpt_more' ]		= apply_filters( 'rpwwt_excerpt_more', ' ' . '[&hellip;]' ); // set ellipses as default 'more'
+		$this->defaults[ 'is_nav_widget' ]		= current_theme_supports( 'html5', 'navigation-widgets' ); // available support of navigation in widgets (NAV element for more accessibility), since WP 5.5
+		$this->defaults[ 'nav_label' ]			= __( 'Recent Posts With Thumbnails', 'recent-posts-widget-with-thumbnails' ); // ARIA label of the navigation list
 		$this->defaults[ 'number_posts' ]		= 5; // number of posts to show in the widget
+        $this->defaults[ 'orderby' ]    		= 'date'; // default order value
+        $this->defaults[ 'order' ]    		    = 'desc'; // default sort value
 		$this->defaults[ 'plugin_slug' ]		= 'recent-posts-widget-with-thumbnails'; // identifier of this plugin for WP
-		$this->defaults[ 'plugin_version' ]		= '6.6.1'; // current plugin version
+		$this->defaults[ 'plugin_version' ]		= '7.1.1'; // current plugin version
 		$this->defaults[ 'post_title_length' ] 	= 1000; // default length: 1000 characters
+		$this->defaults[ 'thumb_alt' ]			= '';
 		$this->defaults[ 'thumb_dimensions' ]	= 'custom'; // dimensions of the thumbnail
 		$this->defaults[ 'thumb_height' ] 		= absint( round( get_option( 'thumbnail_size_h', 110 ) / 2 ) ); // custom height of the thumbnail
 		$this->defaults[ 'thumb_url' ]			= plugins_url( 'default_thumb.gif', __FILE__ ); // URL of the default thumbnail
@@ -82,14 +96,14 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		$this->defaults[ 'site_url' ]			= $parsed_url[ 'scheme' ];
 		unset( $parsed_url );
 		// other vars
-		$this->bools_false						= array( 'hide_current_post', 'only_sticky_posts', 'hide_sticky_posts', 'hide_title', 'keep_aspect_ratio', 'keep_sticky', 'only_1st_img', 'random_order', 'show_author', 'show_categories', 'show_comments_number', 'show_date', 'show_excerpt', 'ignore_excerpt', 'ignore_post_content_excerpt', 'set_more_as_link', 'try_1st_img', 'use_default', 'use_default_only', 'open_new_window', 'print_post_categories', 'set_cats_as_links', 'use_inline_css', 'use_no_css' );
+		$this->bools_false						= array( 'hide_current_post', 'only_sticky_posts', 'hide_sticky_posts', 'hide_title', 'keep_aspect_ratio', 'keep_sticky', 'only_1st_img', 'random_order', 'show_author', 'show_categories', 'show_comments_number', 'show_date', 'show_excerpt', 'ignore_excerpt', 'ignore_post_content_excerpt', 'set_more_as_link', 'try_1st_img', 'use_default', 'use_default_only', 'open_new_window', 'print_post_categories', 'set_cats_as_links', 'use_inline_css', 'use_no_css', 'hide_alt_texts' );
 		$this->bools_true						= array( 'show_thumb' );
 		$this->ints 							= array( 'excerpt_length', 'number_posts', 'post_title_length', 'thumb_height', 'thumb_width' );
 		$this->valid_excerpt_sources			= array( 'post_content', 'excerpt_field' );
+		$this->optional_text_fields				= array( 'author_label', 'excerpt_more', 'category_label', 'thumb_alt' );
 		$widget_ops 							= array( 'classname' => $this->defaults[ 'plugin_slug' ], 'description' => $widget_desc );
 		parent::__construct( $this->defaults[ 'plugin_slug' ], $widget_name, $widget_ops );
 
-		add_action( 'admin_init',				array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'save_post',				array( $this, 'flush_widget_cache' ) );
 		add_action( 'deleted_post',				array( $this, 'flush_widget_cache' ) );
 		add_action( 'switch_theme',				array( $this, 'flush_widget_cache' ) );
@@ -102,6 +116,7 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 
 	}
 
+    // display the widget on the front end.
 	function widget( $args, $instance ) {
 		global $post;
 
@@ -110,11 +125,13 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		}
 
 		// get and sanitize values
-		$title					= ( ! empty( $instance[ 'title' ] ) )				? $instance[ 'title' ]									: $this->defaults[ 'widget_title' ];
-		$title					= apply_filters( 'widget_title', $title, $instance, $this->id_base );
-		$category_ids 			= ( ! empty( $instance[ 'category_ids' ] ) )		? array_map( 'absint', $instance[ 'category_ids' ] )	: $this->defaults[ 'category_ids' ];
-		$default_url 			= ( ! empty( $instance[ 'default_url' ] ) )			? $instance[ 'default_url' ]							: $this->defaults[ 'thumb_url' ];
-		$thumb_dimensions		= ( ! empty( $instance[ 'thumb_dimensions' ] ) )	? $instance[ 'thumb_dimensions' ]						: $this->defaults[ 'thumb_dimensions' ];
+		$title			  = ( ! empty( $instance[ 'title' ] ) ) ? $instance[ 'title' ] : $this->defaults[ 'widget_title' ];
+		$title			  = apply_filters( 'widget_title', $title, $instance, $this->id_base );
+		$category_ids 	  = ( ! empty( $instance[ 'category_ids' ] ) ) ? array_map( 'absint', $instance[ 'category_ids' ] ) : $this->defaults[ 'category_ids' ];
+		$default_url 	  = ( ! empty( $instance[ 'default_url' ] ) ) ? $instance[ 'default_url' ] : $this->defaults[ 'thumb_url' ];
+		$thumb_dimensions = ( ! empty( $instance[ 'thumb_dimensions' ] ) ) ? $instance[ 'thumb_dimensions' ] : $this->defaults[ 'thumb_dimensions' ];
+        $orderby          = ( ! empty( $instance[ 'orderby' ] ) ) ? $instance[ 'orderby' ] : $this->defaults[ 'orderby' ];
+        $order            = ( ! empty( $instance[ 'order' ] ) && 'rand' != $orderby ) ? $instance[ 'order' ] : $this->defaults[ 'order' ];
 		// initialize integer variables
 		$ints = array();
 		foreach ( $this->ints as $key ) {
@@ -140,18 +157,28 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 			$default_url = $this->defaults[ 'thumb_url' ];
 		}
 
+		// ToDo: add option to filter custom post types as well
 		// standard params
 		$query_args = array(
-			'posts_per_page'      => $ints[ 'number_posts' ],
-			'no_found_rows'       => true,
-			'post_status'         => 'publish',
-		);
-		
-		// set order of posts in widget
-		$query_args[ 'orderby' ] = ( $bools[ 'random_order' ] ) ? 'rand' : 'date';
+			'posts_per_page' => $ints[ 'number_posts' ],
+			'no_found_rows'  => true,
+			'post_status'    => 'publish',
+            'orderby'        => $orderby
+        );
+
+		if( 'rand' != $orderby ) {
+            $query_args[ 'order' ] = $order;
+        }
+
+        // make downward compatible from version 7.1 and up
+        // deprecated $bools[ 'random_order' ]
+        if( $bools['random_order'] ) {
+            $this->ints[ 'orderby' ] = 'rand';
+        }
+
+        // set order of posts in widget
 		//$query_args[ 'orderby' ] = ( $bools[ 'random_order' ] ) ? 'rand' : 'menu_order, post_date';
-		$query_args[ 'order' ] = 'DESC';
-		
+
 		// add categories param only if 'all categories' was not selected
 		if ( ! in_array( 0, $category_ids ) ) {
 			$query_args[ 'category__in' ] = $category_ids;
@@ -207,8 +234,8 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		if ( isset( $query_args[ 'category__in' ] ) and $bools[ 'keep_sticky' ] ) {
 			add_filter( 'the_posts', array( $this, 'get_stickies_on_top' ) );
 		}
-		
-		// run the query: get the latest posts
+
+        // run the query: get the latest posts
 		$r = new WP_Query( apply_filters( 'rpwwt_widget_posts_args', $query_args ) );
 
 		// remove correction function if query includes sticky posts and categories filter
@@ -216,8 +243,21 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 			remove_filter( 'the_posts', array( $this, 'get_stickies_on_top' ) );
 		}
 		
-		if ( $r->have_posts()) :
+		if ( $r->have_posts() ) :
 		
+			// translate repeately used texts once (for more performance)
+			$text = ', ';
+			$this->defaults[ 'comma' ] = __( $text );
+			$text = '&hellip;';
+			$this->defaults[ 'ellipses' ] = __( $text );
+			$text = '(no title)';
+			$this->defaults[ 'no_title' ] = __( $text );
+			$text = 'Post';
+			$this->defaults[ 'Post' ] = _x( $text, 'post type singular name' );
+			
+			// get current post ID
+			$queried_object_id = get_queried_object_id();
+
 			// set the desired image dimensions
 			if ( 'custom' == $thumb_dimensions ) {
 				// set dimensions with specified size array
@@ -229,25 +269,17 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 				$this->customs[ 'thumb_dimensions' ] = $thumb_dimensions;
 			}
 
-			// let there be an empty 'more' label if desired
-			if ( isset( $instance[ 'excerpt_more' ] ) ) {
-				if ( '' === $instance[ 'excerpt_more' ] ) {
-					$this->customs[ 'excerpt_more' ] = '';
+			// for some text fields: let there be an empty fields if desired
+			foreach ( $this->optional_text_fields as $field ) {
+				if ( isset( $instance[ $field ] ) ) {
+					if ( '' === $instance[ $field ] ) {
+						$this->customs[ $field ] = '';
+					} else {
+						$this->customs[ $field ] = $instance[ $field ];
+					}
 				} else {
-					$this->customs[ 'excerpt_more' ] = $instance[ 'excerpt_more' ];
+					$this->customs[ $field ] = $this->defaults[ $field ];
 				}
-			} else {
-				$this->customs[ 'excerpt_more' ] = $this->defaults[ 'excerpt_more' ];
-			}
-			// let there be an empty category label if desired
-			if ( isset( $instance[ 'category_label' ] ) ) {
-				if ( '' === $instance[ 'category_label' ] ) {
-					$this->customs[ 'category_label' ] = '';
-				} else {
-					$this->customs[ 'category_label' ] = $instance[ 'category_label' ];
-				}
-			} else {
-				$this->customs[ 'category_label' ] = $this->defaults[ 'category_label' ];
 			}
 
 			// set other global vars
@@ -260,9 +292,10 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 
 			// set default image code
 			$default_attr = array(
-				'src'	=> $default_url,
-				'class'	=> sprintf( "attachment-%dx%d", $ints[ 'thumb_width' ], $ints[ 'thumb_height' ] ),
-				'alt'	=> '',
+				'src'		=> esc_url( $default_url ),
+				'class'		=> sprintf( "attachment-%dx%d", $ints[ 'thumb_width' ], $ints[ 'thumb_height' ] ),
+				'alt'		=> $bools[ 'hide_alt_texts' ] ? '' : esc_attr( $this->customs[ 'thumb_alt' ] ),
+				'loading'	=> 'lazy',
 			);
 			$default_img = '<img ';
 			$default_img .= rtrim( image_hwstring( $ints[ 'thumb_width' ], $ints[ 'thumb_height' ] ) );
@@ -278,14 +311,12 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 				$this->customs[ 'link_target' ] = '';
 			}
 			
-			// translate repeately used texts once (for more performance)
-			$text = ', ';
-			$this->defaults[ 'comma' ] = __( $text );
-			$text = '&hellip;';
-			$this->defaults[ 'ellipses' ] = __( $text );
-			$text = 'By %s';
-			$this->defaults[ 'author_label' ] = _x( $text, 'theme author' );
-
+			//set image attributes
+			$attr = '';
+			if ( $bools[ 'hide_alt_texts' ] ) {
+				$attr = array( 'alt' => '' );
+			}
+			
 			// print list
 			include 'includes/widget.php';
 
@@ -296,44 +327,39 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 
 	}
 
+    // The widget form in the admin area.
 	function update( $new_widget_settings, $old_widget_settings ) {
 		$instance = $old_widget_settings;
 		// sanitize user input before update
-		$instance[ 'title' ] 				= ( isset( $new_widget_settings[ 'title' ] ) )					? strip_tags( $new_widget_settings[ 'title' ] )						: $this->defaults[ 'widget_title' ];
-		$instance[ 'default_url' ] 			= ( isset( $new_widget_settings[ 'default_url' ] ) )			? esc_url_raw( $new_widget_settings[ 'default_url' ] )				: $this->defaults[ 'thumb_url' ];
-		$instance[ 'thumb_dimensions' ] 	= ( isset( $new_widget_settings[ 'thumb_dimensions' ] ) )		? strip_tags( $new_widget_settings[ 'thumb_dimensions' ] )			: $this->defaults[ 'thumb_dimensions' ];
-		$instance[ 'category_ids' ]   		= ( isset( $new_widget_settings[ 'category_ids' ] ) )			? array_map( 'absint', $new_widget_settings[ 'category_ids' ] )		: $this->defaults[ 'category_ids' ];
+		$instance[ 'title' ] 			= ( isset( $new_widget_settings[ 'title' ] ) )            ? strip_tags( $new_widget_settings[ 'title' ] )				: $this->defaults[ 'widget_title' ];
+		$instance[ 'default_url' ] 		= ( isset( $new_widget_settings[ 'default_url' ] ) )      ? esc_url_raw( $new_widget_settings[ 'default_url' ] )		: $this->defaults[ 'thumb_url' ];
+		$instance[ 'thumb_dimensions' ] = ( isset( $new_widget_settings[ 'thumb_dimensions' ] ) ) ? strip_tags( $new_widget_settings[ 'thumb_dimensions' ] )	: $this->defaults[ 'thumb_dimensions' ];
+		$instance[ 'category_ids' ]   	= ( isset( $new_widget_settings[ 'category_ids' ] ) )     ? array_map( 'absint', $new_widget_settings[ 'category_ids' ] ) : $this->defaults[ 'category_ids' ];
+        $instance[ 'orderby' ]         	= ( isset( $new_widget_settings[ 'orderby' ] ) )          ? $new_widget_settings[ 'orderby' ]		                    : $this->defaults[ 'orderby' ];
+        $instance[ 'order' ]   	        = ( isset( $new_widget_settings[ 'order' ] ) )            ? $new_widget_settings[ 'order' ]		                        : $this->defaults[ 'order' ];
 		// initialize integer variables
 		foreach ( $this->ints as $key ) {
 			$instance[ $key ] = ( isset( $new_widget_settings[ $key ] ) ) ? absint( $new_widget_settings[ $key ] ) : $this->defaults[ $key ];
 		}
 		// initialize bool variables
 		foreach ( $this->bools_false as $key ) {
-			$instance[ $key ] = ( isset( $new_widget_settings[ $key ] ) ) ? (bool) $new_widget_settings[ $key ] : false;
+			$instance[ $key ] = isset( $new_widget_settings[ $key ] ) && $new_widget_settings[ $key ];
 		}
 		foreach ( $this->bools_true as $key ) {
-			$instance[ $key ] = ( isset( $new_widget_settings[ $key ] ) ) ? (bool) $new_widget_settings[ $key ] : false;
+			$instance[ $key ] = isset( $new_widget_settings[ $key ]) && $new_widget_settings[ $key ];
 		}
 
-		// let there be an empty 'more' label if desired
-		if ( isset( $new_widget_settings[ 'excerpt_more' ] ) ) {
-			if ( '' == $new_widget_settings[ 'excerpt_more' ] ) {
-				$instance[ 'excerpt_more' ] = '';
+		// for some text fields: let there be an empty fields if desired
+		foreach ( $this->optional_text_fields as $field ) {
+			if ( isset( $new_widget_settings[ $field ] ) ) {
+				if ( '' == $new_widget_settings[ $field ] ) {
+					$instance[ $field ] = '';
+				} else {
+					$instance[ $field ] = $new_widget_settings[ $field ];
+				}
 			} else {
-				$instance[ 'excerpt_more' ] = $new_widget_settings[ 'excerpt_more' ];
+				$instance[ $field ] = $this->defaults[ $field ];
 			}
-		} else {
-			$instance[ 'excerpt_more' ] = $this->defaults[ 'excerpt_more' ];
-		}
-		// let there be an empty category label if desired
-		if ( isset( $new_widget_settings[ 'category_label' ] ) ) {
-			if ( '' == $new_widget_settings[ 'category_label' ] ) {
-				$instance[ 'category_label' ] = '';
-			} else {
-				$instance[ 'category_label' ] = $new_widget_settings[ 'category_label' ];
-			}
-		} else {
-			$instance[ 'category_label' ] = $this->defaults[ 'category_label' ];
 		}
 
 		// if 'all categories' was selected ignore other selections of categories
@@ -355,7 +381,7 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 			unlink( $this->defaults[ 'css_file_path' ] );
 		}
 
-		// return sanitized current widget settings
+        // return sanitized current widget settings
 		return $instance;
 	}
 
@@ -363,6 +389,7 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		wp_cache_delete( $this->defaults[ 'plugin_slug' ], 'widget' );
 	}
 
+    // Saves the  data, called via AJAX. But the saving logic comes here.
 	function form( $instance ) {
 		// get and sanitize values
 		$title					= ( isset( $instance[ 'title' ] ) ) 				? $instance[ 'title' ]				: $this->defaults[ 'widget_title' ];
@@ -383,27 +410,19 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 			$bools[ $key ] = ( isset( $instance[ $key ] ) ) ? (bool) $instance[ $key ] : true;
 		}
 
-		// let there be an empty 'more' label if desired
-		if ( isset( $instance[ 'excerpt_more' ] ) ) {
-			if ( '' == $instance[ 'excerpt_more' ] ) {
-				$excerpt_more = '';
+        // for some text fields: let there be an empty fields if desired
+		foreach ( $this->optional_text_fields as $field ) {
+			if ( isset( $instance[ $field ] ) ) {
+				if ( '' == $instance[ $field ] ) {
+					$optional_texts[ $field ] = '';
+				} else {
+					$optional_texts[ $field ] = $instance[ $field ];
+				}
 			} else {
-				$excerpt_more = $instance[ 'excerpt_more' ];
+				$optional_texts[ $field ] = $this->defaults[ $field ];
 			}
-		} else {
-			$excerpt_more = $this->defaults[ 'excerpt_more' ];
 		}
-		// let there be an empty category label if desired
-		if ( isset( $instance[ 'category_label' ] ) ) {
-			if ( '' == $instance[ 'category_label' ] ) {
-				$category_label = '';
-			} else {
-				$category_label = $instance[ 'category_label' ];
-			}
-		} else {
-			$category_label = $this->defaults[ 'category_label' ];
-		}
-		
+
 		// if 'all categories' was selected ignore other selections of categories
 		if ( in_array( 0, $category_ids ) ) {
 			$category_ids = $this->defaults[ 'category_ids' ];
@@ -415,17 +434,21 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 
 		// compute ids only once to improve performance
 		$field_ids = array();
+		$field_ids[ 'author_label' ]	= $this->get_field_id( 'author_label' );
 		$field_ids[ 'category_ids' ]	= $this->get_field_id( 'category_ids' );
 		$field_ids[ 'category_label' ]	= $this->get_field_id( 'category_label' );
 		$field_ids[ 'default_url' ]		= $this->get_field_id( 'default_url' );
 		$field_ids[ 'excerpt_more' ]	= $this->get_field_id( 'excerpt_more' );
-		$field_ids[ 'title' ]			= $this->get_field_id( 'title' );
+		$field_ids[ 'thumb_alt' ]		= $this->get_field_id( 'thumb_alt' );
 		$field_ids[ 'thumb_dimensions' ]= $this->get_field_id( 'thumb_dimensions' );
+		$field_ids[ 'title' ]			= $this->get_field_id( 'title' );
+        $field_ids[ 'orderby' ]			= $this->get_field_id( 'orderby' );
+        $field_ids[ 'order' ]			= $this->get_field_id( 'order' );
 		foreach ( array_merge( $this->ints, $this->bools_false, $this->bools_true ) as $key ) {
 			$field_ids[ $key ] = $this->get_field_id( $key );
 		}
-		
-		// get texts and values for image sizes dropdown
+
+        // get texts and values for image sizes dropdown
 		global $_wp_additional_image_sizes;
 		$wp_standard_image_size_labels = array();
 		$label = 'Full Size';	$wp_standard_image_size_labels[ 'full' ]		= __( $label );
@@ -446,23 +469,33 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 			// Set name
 			$option_values[ 'name' ] = in_array( $size_name, $wp_standard_image_size_names ) ? $wp_standard_image_size_labels[$size_name] : $size_name;
 			// Set width
-			$option_values[ 'width' ] = isset( $_wp_additional_image_sizes[$size_name]['width'] ) ? $_wp_additional_image_sizes[$size_name]['width'] : get_option( "{$size_name}_size_w" );
-			// Set height
-			$option_values[ 'height' ] = isset( $_wp_additional_image_sizes[$size_name]['height'] ) ? $_wp_additional_image_sizes[$size_name]['height'] : get_option( "{$size_name}_size_h" );
+            $option_values[ 'width' ] = isset( $_wp_additional_image_sizes[$size_name]['width'] ) ? $_wp_additional_image_sizes[$size_name]['width'] : get_option( "{$size_name}_size_w" );
+            // Set height
+            $option_values[ 'height' ] = isset( $_wp_additional_image_sizes[$size_name]['height'] ) ? $_wp_additional_image_sizes[$size_name]['height'] : get_option( "{$size_name}_size_h" );
 			// add option to options list
 			$size_options[] = $option_values;
 		}
-		
+
 		// create text to Media Settings page
 		$text = 'Settings';	$label_settings	= __( $text );
 		$text = 'Media';	$label_media	= _x( $text, 'post type general name' );
 		$label = sprintf( '%s &rsaquo; %s', $label_settings, $label_media );
 		$media_trail = ( current_user_can( 'manage_options' ) ) ? sprintf( '<a href="%s" target="_blank">%s</a>', esc_url( admin_url( 'options-media.php' ) ), esc_html( $label ) ) : sprintf( '<em>%s</em>', esc_html( $label ) );
 
-		// get texts and values for categories dropdown
-		#$none_text = 'All Categories';
-		$all_text = 'All Categories';
-		$label_all_cats = __( $all_text );
+        // oder settings
+        $option_values[ 'orderby' ] = ( isset( $instance[ 'orderby' ] ) ) ? $instance[ 'orderby' ] : $this->defaults[ 'orderby' ];
+
+        // make downward compatible from version 7.1 and up
+        // deprecated $bools[ 'random_order' ]
+        if( true == $bools[ 'random_order' ] ) {
+            $option_values[ 'orderby' ] = 'rand';
+        }
+
+        $option_values[ 'order' ] = ( isset( $instance[ 'order' ] )  && 'rand' != $option_values[ 'orderby' ] ) ? $instance[ 'order' ] : $this->defaults[ 'order' ];
+
+        // get texts and values for categories dropdown
+		$all_text = __( 'All Categories', 'recent-posts-widget-with-thumbnails' );
+		$label_all_cats = $all_text;
 
 		// get categories
 		$categories = get_categories( array( 'hide_empty' => 0, 'hierarchical' => 1 ) );
@@ -562,7 +595,7 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 
 		// close selection box
 		$selection_element .= "</select>\n";
-		
+
 		// print form in widgets page
 		include 'includes/form.php';
 
@@ -660,17 +693,6 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 	}
 
 	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_plugin_textdomain() {
-
-		load_plugin_textdomain( 'recent-posts-widget-with-thumbnails', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
-	}
-
-	/**
 	 * Returns the id of the first image in the content, else 0
 	 *
 	 * @access   private
@@ -733,22 +755,21 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 	}
 
 	/**
-	 * Echoes the thumbnail of first post's image and returns success
+	 * Returns the thumbnail of first post's image or empty string on failure
 	 *
 	 * @access   private
 	 * @since     2.0
 	 *
 	 * @return    bool    success on finding an image
 	 */
-	private function the_first_post_image () {
+	private function the_first_post_image ( $attr ) {
 		// look for first image
 		$thumb_id = $this->get_first_content_image_id();
 		// if there is first image then show first image
 		if ( $thumb_id ) :
-			echo wp_get_attachment_image( $thumb_id, $this->customs[ 'thumb_dimensions' ] );
-			return true;
+			return wp_get_attachment_image( $thumb_id, $this->customs[ 'thumb_dimensions' ], $attr );
 		else :
-			return false;
+			return '';
 		endif; // thumb_id
 	}
 
@@ -798,7 +819,7 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		}
 		$string .= join( $this->defaults[ 'comma' ], $categories );
 		
-		return $string;
+		return apply_filters( 'rpwwt_categories', $string );
 	}
 
 	/**
@@ -814,7 +835,13 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		if ( empty( $author ) ) {
 			return '';
 		} else {
-			return sprintf( $this->defaults[ 'author_label' ], $author );
+			$string = '';
+			if ( $this->customs[ 'author_label' ] ) {
+				$string = $this->customs[ 'author_label' ] . ' ';
+			}
+			return $string . $author;
+			
+			//return sprintf( $this->defaults[ 'author_label' ], $author );
 		}
 
 	}
@@ -834,6 +861,9 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		$css_code  = ".rpwwt-widget ul { list-style: outside none none; margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }\n"; 
 		$css_code .= ".rpwwt-widget ul li { overflow: hidden; margin: 0 0 1.5em; }\n"; 
 		$css_code .= ".rpwwt-widget ul li:last-child { margin: 0; }\n"; 
+		$css_code .= ".rpwwt-widget .screen-reader-text {border: 0; clip: rect(1px, 1px, 1px, 1px); -webkit-clip-path: inset(50%); clip-path: inset(50%); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute !important; width: 1px; word-wrap: normal !important; word-break: normal; }\n";
+		$css_code .= ".rpwwt-widget .screen-reader-text:focus {background-color: #f1f1f1; border-radius: 3px; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto !important; -webkit-clip-path: none; clip-path: none; color: #21759b; display: block; font-size: 0.875rem; font-weight: 700; height: auto; right: 5px; line-height: normal; padding: 15px 23px 14px; text-decoration: none; top: 5px; width: auto; z-index: 100000; }\n";
+		
 		if ( is_rtl() ) {
 			$css_code .= ".rpwwt-widget ul li img { display: inline; float: right; margin: .3em 0 .75em .75em; }\n";
 		} else {
@@ -947,9 +977,9 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		if ( $excerpt ) {
 			// append 'more' text, set 'more' signs as link if desired
 			if ( $this->customs[ 'set_more_as_link' ] ) {
-				$excerpt .= sprintf( '<a href="%s"%s>%s</a>', get_the_permalink( $post ), $this->customs[ 'link_target' ], $this->customs[ 'excerpt_more' ] );
+				$excerpt .= sprintf( '<a href="%s"%s class="rpwwt-post-excerpt-more">%s</a>', get_the_permalink( $post ), $this->customs[ 'link_target' ], $this->customs[ 'excerpt_more' ] );
 			} else {
-				$excerpt .= $this->customs[ 'excerpt_more' ];
+				$excerpt .= '<span class="rpwwt-post-excerpt-more">' . $this->customs[ 'excerpt_more' ] . '</span>';
 			}
 		}
 		
@@ -1037,6 +1067,18 @@ class Recent_Posts_Widget_With_Thumbnails extends WP_Widget {
 		} // for()
 		// return new list
 		return $posts;
+	}
+	
+	/**
+	 * Returns the ARIA label for the NAV element
+	 *
+	 * @since 6.7.1
+	 */
+	private function get_aria_nav_label( $title ) {
+		// the title may be filtered: Strip out HTML
+		$title = trim( strip_tags( $title ) );
+		// and make sure the aria-label is never empty
+		return $title ? $title : $this->defaults[ 'nav_label' ];
 	}
 	
 }

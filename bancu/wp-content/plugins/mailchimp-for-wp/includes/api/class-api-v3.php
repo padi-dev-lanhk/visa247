@@ -188,6 +188,20 @@ class MC4WP_API_V3 {
 	}
 
 	/**
+	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/members/
+	 * @since 4.8.12
+	 * @param string $list_id
+	 * @param array $args
+	 *
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function get_list_members( $list_id, array $args = array() ) {
+		$resource = sprintf( '/lists/%s/members', $list_id );
+		return $this->client->get( $resource, $args );
+	}
+
+	/**
 	 * Batch subscribe / unsubscribe list members.
 	 *
 	 * @link https://developer.mailchimp.com/documentation/mailchimp/reference/lists/#create-post_lists_list_id
@@ -225,9 +239,11 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		// "put" updates the member if it's already on the list... take notice
-		$data = $this->client->post( $resource, $args );
-		return $data;
+		if ( isset( $args['marketing_permissions'] ) ) {
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
+		}
+
+		return $this->client->post( $resource, $args );
 	}
 
 	/**
@@ -237,13 +253,18 @@ class MC4WP_API_V3 {
 	 *
 	 * @param string $list_id
 	 * @param array $args
+	 * @param bool $skip_merge_validation Allow subscribing users without all required MERGE fields
 	 *
 	 * @return object
 	 * @throws MC4WP_API_Exception
 	 */
-	public function add_list_member( $list_id, array $args ) {
+	public function add_list_member( $list_id, array $args, $skip_merge_validation = false ) {
 		$subscriber_hash = $this->get_subscriber_hash( $args['email_address'] );
 		$resource        = sprintf( '/lists/%s/members/%s', $list_id, $subscriber_hash );
+
+		if ( $skip_merge_validation ) {
+			$resource = add_query_arg( array( 'skip_merge_validation' => 'true' ), $resource );
+		}
 
 		// make sure we're sending an object as the Mailchimp schema requires this
 		if ( isset( $args['merge_fields'] ) ) {
@@ -254,9 +275,12 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
+		if ( isset( $args['marketing_permissions'] ) ) {
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
+		}
+
 		// "put" updates the member if it's already on the list... take notice
-		$data = $this->client->put( $resource, $args );
-		return $data;
+		return $this->client->put( $resource, $args );
 	}
 
 	/**
@@ -282,8 +306,11 @@ class MC4WP_API_V3 {
 			$args['interests'] = (object) $args['interests'];
 		}
 
-		$data = $this->client->patch( $resource, $args );
-		return $data;
+		if ( isset( $args['marketing_permissions'] ) ) {
+			$args['marketing_permissions'] = (array) $args['marketing_permissions'];
+		}
+
+		return $this->client->patch( $resource, $args );
 	}
 
 	/**
@@ -1086,7 +1113,6 @@ class MC4WP_API_V3 {
 		return ! ! $this->client->delete( $resource );
 	}
 
-
 	/**
 	 * Get a list of an account's available templates
 	 *
@@ -1112,6 +1138,19 @@ class MC4WP_API_V3 {
 	public function get_template( $template_id, array $args = array() ) {
 		$resource = sprintf( '/templates/%s', $template_id );
 		return $this->client->get( $resource, $args );
+	}
+
+	/**
+	 * Create a new template.
+	 *
+	 * @link https://mailchimp.com/developer/reference/templates/#post_/templates
+	 * @param array $args
+	 * @return object
+	 * @throws MC4WP_API_Exception
+	 */
+	public function add_template( array $args ) {
+		$resource = '/templates';
+		return $this->client->post( $resource, $args );
 	}
 
 	/**

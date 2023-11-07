@@ -3,19 +3,19 @@ defined( 'ABSPATH' ) or exit;
 ?>
 <div id="mc4wp-admin" class="wrap mc4wp-settings">
 
-	<p class="breadcrumbs">
-		<span class="prefix"><?php echo __( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
+	<p class="mc4wp-breadcrumbs">
+		<span class="prefix"><?php echo esc_html__( 'You are here: ', 'mailchimp-for-wp' ); ?></span>
 		<span class="current-crumb"><strong>Mailchimp for WordPress</strong></span>
 	</p>
 
 
-	<div class="row">
+	<div class="mc4wp-row">
 
 		<!-- Main Content -->
-		<div class="main-content col col-4">
+		<div class="main-content mc4wp-col">
 
-			<h1 class="page-title">
-				Mailchimp for WordPress: <?php _e( 'API Settings', 'mailchimp-for-wp' ); ?>
+			<h1 class="mc4wp-page-title">
+				Mailchimp for WordPress: <?php echo esc_html__( 'API Settings', 'mailchimp-for-wp' ); ?>
 			</h1>
 
 			<h2 style="display: none;"></h2>
@@ -31,17 +31,17 @@ defined( 'ABSPATH' ) or exit;
 
 					<tr valign="top">
 						<th scope="row">
-							<?php _e( 'Status', 'mailchimp-for-wp' ); ?>
+							<?php echo esc_html__( 'Status', 'mailchimp-for-wp' ); ?>
 						</th>
 						<td>
 							<?php
 							if ( $connected ) {
 								?>
-								<span class="status positive"><?php _e( 'CONNECTED', 'mailchimp-for-wp' ); ?></span>
+								<span class="mc4wp-status positive"><?php echo esc_html__( 'CONNECTED', 'mailchimp-for-wp' ); ?></span>
 								<?php
 							} else {
 								?>
-								<span class="status neutral"><?php _e( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
+								<span class="mc4wp-status neutral"><?php echo esc_html__( 'NOT CONNECTED', 'mailchimp-for-wp' ); ?></span>
 								<?php
 							}
 							?>
@@ -50,17 +50,17 @@ defined( 'ABSPATH' ) or exit;
 
 
 					<tr valign="top">
-						<th scope="row"><label for="mailchimp_api_key"><?php _e( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
+						<th scope="row"><label for="mailchimp_api_key"><?php echo esc_html__( 'API Key', 'mailchimp-for-wp' ); ?></label></th>
 						<td>
-							<input type="text" class="widefat" placeholder="<?php _e( 'Your Mailchimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" <?php echo defined( 'MC4WP_API_KEY' ) ? 'readonly="readonly"' : ''; ?> />
-							<p class="help">
-								<?php _e( 'The API key for connecting with your Mailchimp account.', 'mailchimp-for-wp' ); ?>
-								<a target="_blank" href="https://admin.mailchimp.com/account/api"><?php _e( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a>
+							<input type="text" class="widefat" placeholder="<?php echo esc_html__( 'Your Mailchimp API key', 'mailchimp-for-wp' ); ?>" id="mailchimp_api_key" name="mc4wp[api_key]" value="<?php echo esc_attr( $obfuscated_api_key ); ?>" <?php echo defined( 'MC4WP_API_KEY' ) ? 'readonly="readonly"' : ''; ?> />
+							<p class="description">
+								<?php echo esc_html__( 'The API key for connecting with your Mailchimp account.', 'mailchimp-for-wp' ); ?>
+								<a target="_blank" href="https://admin.mailchimp.com/account/api"><?php echo esc_html__( 'Get your API key here.', 'mailchimp-for-wp' ); ?></a>
 							</p>
 
 							<?php
 							if ( defined( 'MC4WP_API_KEY' ) ) {
-								echo '<p class="help">' . __( 'You defined your Mailchimp API key using the <code>MC4WP_API_KEY</code> constant.', 'mailchimp-for-wp' ) . '</p>';
+								echo '<p class="description">', wp_kses( __( 'You defined your Mailchimp API key using the <code>MC4WP_API_KEY</code> constant.', 'mailchimp-for-wp' ), array( 'code' => array() ) ), '</p>';
 							}
 							?>
 						</td>
@@ -85,17 +85,17 @@ defined( 'ABSPATH' ) or exit;
 
 			if ( ! empty( $opts['api_key'] ) ) {
 				echo '<hr />';
-				include dirname( __FILE__ ) . '/parts/lists-overview.php';
+				include __DIR__ . '/parts/lists-overview.php';
 			}
 
-			include dirname( __FILE__ ) . '/parts/admin-footer.php';
+			require __DIR__ . '/parts/admin-footer.php';
 
 			?>
 		</div>
 
 		<!-- Sidebar -->
-		<div class="sidebar col col-2">
-			<?php include dirname( __FILE__ ) . '/parts/admin-sidebar.php'; ?>
+		<div class="mc4wp-sidebar mc4wp-col">
+			<?php require __DIR__ . '/parts/admin-sidebar.php'; ?>
 		</div>
 
 

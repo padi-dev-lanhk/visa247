@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
+class ComposerStaticInit384c28fb9f1d4a5d37e1fd3fd40c644a
 {
     public static $files = array (
         'fca581ae5268210490253d58378748c5' => __DIR__ . '/../..' . '/includes/functions.php',
@@ -14,18 +14,8 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         '90c3516593b5de6b5d4528b70e2399dd' => __DIR__ . '/../..' . '/includes/integrations/functions.php',
     );
 
-    public static $prefixesPsr0 = array (
-        'x' => 
-        array (
-            'xrstf\\Composer52' => 
-            array (
-                0 => __DIR__ . '/..' . '/xrstf/composer-php52/lib',
-            ),
-        ),
-    );
-
     public static $classMap = array (
-        'MC4WP_API' => __DIR__ . '/../..' . '/includes/api/class-api.php',
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'MC4WP_API_Connection_Exception' => __DIR__ . '/../..' . '/includes/api/class-connection-exception.php',
         'MC4WP_API_Exception' => __DIR__ . '/../..' . '/includes/api/class-exception.php',
         'MC4WP_API_Resource_Not_Found_Exception' => __DIR__ . '/../..' . '/includes/api/class-resource-not-found-exception.php',
@@ -52,6 +42,7 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Field_Formatter' => __DIR__ . '/../..' . '/includes/class-field-formatter.php',
         'MC4WP_Field_Guesser' => __DIR__ . '/../..' . '/includes/class-field-guesser.php',
         'MC4WP_Form' => __DIR__ . '/../..' . '/includes/forms/class-form.php',
+        'MC4WP_Form_AMP' => __DIR__ . '/../..' . '/includes/forms/class-form-amp.php',
         'MC4WP_Form_Asset_Manager' => __DIR__ . '/../..' . '/includes/forms/class-asset-manager.php',
         'MC4WP_Form_Element' => __DIR__ . '/../..' . '/includes/forms/class-form-element.php',
         'MC4WP_Form_Listener' => __DIR__ . '/../..' . '/includes/forms/class-form-listener.php',
@@ -63,7 +54,6 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Form_Widget' => __DIR__ . '/../..' . '/includes/forms/class-widget.php',
         'MC4WP_Forms_Admin' => __DIR__ . '/../..' . '/includes/forms/class-admin.php',
         'MC4WP_Give_Integration' => __DIR__ . '/../..' . '/integrations/give/class-give.php',
-        'MC4WP_Google_Recaptcha' => __DIR__ . '/../..' . '/includes/forms/class-google-recaptcha.php',
         'MC4WP_Gravity_Forms_Field' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-field.php',
         'MC4WP_Gravity_Forms_Integration' => __DIR__ . '/../..' . '/integrations/gravity-forms/class-gravity-forms.php',
         'MC4WP_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-integration.php',
@@ -84,22 +74,18 @@ class ComposerStaticInit982a28eab8420855eb099ba24fa8d700
         'MC4WP_Queue_Job' => __DIR__ . '/../..' . '/includes/class-queue-job.php',
         'MC4WP_Registration_Form_Integration' => __DIR__ . '/../..' . '/integrations/wp-registration-form/class-registration-form.php',
         'MC4WP_Tools' => __DIR__ . '/../..' . '/includes/class-tools.php',
-        'MC4WP_Update_Optin' => __DIR__ . '/../..' . '/includes/admin/class-update-optin.php',
         'MC4WP_Upgrade_Routines' => __DIR__ . '/../..' . '/includes/admin/class-upgrade-routines.php',
         'MC4WP_Usage_Tracking' => __DIR__ . '/../..' . '/includes/admin/class-usage-tracking.php',
         'MC4WP_User_Integration' => __DIR__ . '/../..' . '/includes/integrations/class-user-integration.php',
         'MC4WP_WPForms_Field' => __DIR__ . '/../..' . '/integrations/wpforms/class-field.php',
         'MC4WP_WPForms_Integration' => __DIR__ . '/../..' . '/integrations/wpforms/class-wpforms.php',
         'MC4WP_WooCommerce_Integration' => __DIR__ . '/../..' . '/integrations/woocommerce/class-woocommerce.php',
-        'xrstf\\Composer52\\AutoloadGenerator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/AutoloadGenerator.php',
-        'xrstf\\Composer52\\Generator' => __DIR__ . '/..' . '/xrstf/composer-php52/lib/xrstf/Composer52/Generator.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit982a28eab8420855eb099ba24fa8d700::$classMap;
+            $loader->classMap = ComposerStaticInit384c28fb9f1d4a5d37e1fd3fd40c644a::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,15 +1,36 @@
 <?php
 /**
  * Plugin Name: Post Grid Elementor Addon
- * Description: Elementor page builder addon to display posts in the grid. Useful for generating post grid from your blog posts with multiple options.
- * Plugin URI: https://wpconcern.com/downloads/post-grid-elementor-addon/
- * Version: 1.0.5
- * Author: maneshtimilsina
+ * Description: Elementor page builder addon to display posts in a grid. Useful for generating post grid from your blog posts with multiple options.
+ * Plugin URI: https://wpconcern.com/plugins/post-grid-elementor-addon/
+ * Version: 2.0.12
+ * Author: WP Concern
  * Author URI: https://wpconcern.com/
  * Text Domain: post-grid-elementor-addon
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+define( 'PGEA_VERSION', '2.0.12' );
+define( 'PGEA_SLUG', 'post-grid-elementor-addon' );
+define( 'PGEA_URL', rtrim( plugin_dir_url( __FILE__ ), '/' ) );
+define( 'PGEA_URI', rtrim( plugin_dir_path( __FILE__ ), '/' ) );
+define( 'PGEA_UPGRADE_URL', 'https://checkout.freemius.com/mode/dialog/plugin/6007/plan/9846/' );
+
+
+if ( ! defined( 'WP_WELCOME_DIR' ) ) {
+	define( 'WP_WELCOME_DIR', PGEA_URI . '/vendor/ernilambar/wp-welcome' );
+}
+
+if ( ! defined( 'WP_WELCOME_URL' ) ) {
+	define( 'WP_WELCOME_URL', PGEA_URL . '/vendor/ernilambar/wp-welcome' );
+}
+
+// Include autoload.
+if ( file_exists( PGEA_URI . '/vendor/autoload.php' ) ) {
+	require_once PGEA_URI . '/vendor/autoload.php';
+	require_once PGEA_URI . '/vendor/ernilambar/wp-welcome/init.php';
+}
 
 /**
  * Main Post Grid Elementor Addon Class
@@ -30,7 +51,7 @@ final class Elementor_Post_Grid {
 	 * @since 1.2.0
 	 * @var string The plugin version.
 	 */
-	const VERSION = '1.0.4';
+	const VERSION = PGEA_VERSION;
 
 	/**
 	 * Minimum Elementor Version
@@ -38,7 +59,7 @@ final class Elementor_Post_Grid {
 	 * @since 1.2.0
 	 * @var string Minimum Elementor version required to run the plugin.
 	 */
-	const MINIMUM_ELEMENTOR_VERSION = '2.0.0';
+	const MINIMUM_ELEMENTOR_VERSION = '3.0.0';
 
 	/**
 	 * Minimum PHP Version
@@ -46,7 +67,7 @@ final class Elementor_Post_Grid {
 	 * @since 1.0.0
 	 * @var string Minimum PHP version required to run the plugin.
 	 */
-	const MINIMUM_PHP_VERSION = '5.4.0';
+	const MINIMUM_PHP_VERSION = '5.6.20';
 
 	/**
 	 * Constructor
@@ -108,8 +129,11 @@ final class Elementor_Post_Grid {
 			return;
 		}
 
+		add_action( 'admin_init', array( $this, 'setup_custom_notice' ) );
+
 		// Once we get here, We have passed all validation checks so we can safely include our plugin
 		require_once( 'plugin.php' );
+		require_once( 'inc/admin.php' );
 	}
 
 	/**
@@ -181,6 +205,21 @@ final class Elementor_Post_Grid {
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
+	}
+
+	/**
+	 * Add admin notice.
+	 *
+	 * @since 2.0.8
+	 */
+	public function setup_custom_notice() {
+		// Setup notice.
+		\Nilambar\AdminNotice\Notice::init(
+			array(
+				'slug' => PGEA_SLUG,
+				'name' => esc_html__( 'Post Grid Elementor Addon', 'post-grid-elementor-addon' ),
+			)
+		);
 	}
 }
 

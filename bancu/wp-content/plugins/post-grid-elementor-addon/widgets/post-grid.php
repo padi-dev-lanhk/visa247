@@ -5,9 +5,9 @@ use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
 use Elementor\Group_Control_Box_Shadow;
-use Elementor\Scheme_Typography;
-use Elementor\Scheme_Color;
 use Elementor\Group_Control_Image_Size;
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
@@ -33,7 +33,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 	}
 
 	private function wpcap_get_all_post_categories( $post_type ) {
-		
+
 		$options = array();
 
 		$taxonomy = 'category';
@@ -60,7 +60,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		return $options;
 	}
 
-	protected function _register_controls() {
+	protected function register_controls() {
 
 		$this->wpcap_content_layout_options();
 		$this->wpcap_content_query_options();
@@ -73,7 +73,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		$this->wpcap_style_meta_options();
 		$this->wpcap_style_content_options();
 		$this->wpcap_style_readmore_options();
-		
+
 	}
 
 	/**
@@ -103,7 +103,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 				],
 			]
 		);
-		
+
 		$this->add_responsive_control(
 			'columns',
 			[
@@ -254,6 +254,18 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'excerpt_append',
+			[
+				'label' => __( 'Excerpt Append', 'post-grid-elementor-addon' ),
+				'type' => Controls_Manager::TEXT,
+				'default' => '&hellip;',
+				'condition' => [
+					'show_excerpt' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
 			'show_read_more',
 			[
 				'label' => __( 'Read More', 'post-grid-elementor-addon' ),
@@ -285,15 +297,15 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 				'options' => [
 					'left' => [
 						'title' => __( 'Left', 'post-grid-elementor-addon' ),
-						'icon' => 'fa fa-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'post-grid-elementor-addon' ),
-						'icon' => 'fa fa-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
 						'title' => __( 'Right', 'post-grid-elementor-addon' ),
-						'icon' => 'fa fa-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 				],
 				'default' => 'left',
@@ -330,7 +342,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'options'     => $this->wpcap_get_all_post_categories( 'post' ),
-				
+
 			]
 		);
 
@@ -404,7 +416,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container' => 'grid-column-gap: {{SIZE}}{{UNIT}}',
-					
+
 				],
 			]
 		);
@@ -457,7 +469,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 				'size_units' => [ 'px', '%' ],
 				'selectors'  => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post' => 'border-style: solid; border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],				
+				],
 			]
 		);
 
@@ -511,10 +523,6 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post' => 'background-color: {{VALUE}};',
@@ -528,10 +536,6 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Border Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post' => 'border-color: {{VALUE}};',
@@ -564,10 +568,6 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Background Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post:hover' => 'background-color: {{VALUE}};',
@@ -581,10 +581,6 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Border Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
-				],
 				'separator' => '',
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post:hover' => 'border-color: {{VALUE}};',
@@ -670,9 +666,21 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_title_style_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 				'selector' => '{{WRAPPER}} .wpcap-grid-container .wpcap-post .title, {{WRAPPER}} .wpcap-grid-container .wpcap-post .title > a',
 			]
+		);
+
+		$this->start_controls_tabs( 'grid_title_color_style' );
+
+		// Normal tab.
+		$this->start_controls_tab(
+			'grid_title_style_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'post-grid-elementor-addon' ),
+			)
 		);
 
 		// Title color.
@@ -681,15 +689,43 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+				'global' => [
+					'default' => Global_Colors::COLOR_SECONDARY,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .title, {{WRAPPER}} .wpcap-grid-container .wpcap-post .title > a'       => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .title, {{WRAPPER}} .wpcap-grid-container .wpcap-post .title > a' => 'color: {{VALUE}};',
 				],
 			]
 		);
+
+		$this->end_controls_tab();
+
+		// Hover tab.
+		$this->start_controls_tab(
+			'grid_title_style_hover',
+			array(
+				'label' => esc_html__( 'Hover', 'post-grid-elementor-addon' ),
+			)
+		);
+
+		// Title hover color.
+		$this->add_control(
+			'grid_title_style_hover_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'post-grid-elementor-addon' ),
+				'global' => [
+					'default' => Global_Colors::COLOR_PRIMARY,
+				],
+				'selectors' => array(
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .title, {{WRAPPER}} .wpcap-grid-container .wpcap-post .title > a:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
 
 		// Title margin.
 		$this->add_responsive_control(
@@ -725,7 +761,9 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'grid_meta_style_typography',
-				'scheme'   => Scheme_Typography::TYPOGRAPHY_1,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 				'selector' => '{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-meta span',
 			]
 		);
@@ -736,12 +774,11 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+				'global' => [
+					'default' => Global_Colors::COLOR_TEXT,
 				],
 				'selectors' => [
-					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-meta span'      => 'color: {{VALUE}};',
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-meta span' => 'color: {{VALUE}};',
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-meta span a' => 'color: {{VALUE}};',
 				],
 			]
@@ -781,7 +818,9 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_content_style_typography',
-				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 				'selector'  => '{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-excerpt p',
 			]
 		);
@@ -792,9 +831,8 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+				'global' => [
+					'default' => Global_Colors::COLOR_TEXT,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post .post-grid-excerpt p' => 'color: {{VALUE}};',
@@ -828,6 +866,9 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'label' => __( 'Read More', 'post-grid-elementor-addon' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'show_read_more' => 'yes',
+				],
 			]
 		);
 
@@ -836,9 +877,21 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			Group_Control_Typography::get_type(),
 			[
 				'name'      => 'grid_readmore_style_typography',
-				'scheme'    => Scheme_Typography::TYPOGRAPHY_1,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_ACCENT,
+				],
 				'selector'  => '{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn',
 			]
+		);
+
+		$this->start_controls_tabs( 'grid_readmore_color_style' );
+
+		// Normal tab.
+		$this->start_controls_tab(
+			'grid_readmore_style_normal',
+			array(
+				'label' => esc_html__( 'Normal', 'post-grid-elementor-addon' ),
+			)
 		);
 
 		// Readmore color.
@@ -847,9 +900,8 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			[
 				'type'      => Controls_Manager::COLOR,
 				'label'     => __( 'Color', 'post-grid-elementor-addon' ),
-				'scheme'    => [
-					'type'  => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_1,
+				'global' => [
+					'default' => Global_Colors::COLOR_TEXT,
 				],
 				'selectors' => [
 					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'color: {{VALUE}};',
@@ -857,7 +909,132 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 			]
 		);
 
-		// Readmore margin
+		// Readmore background color.
+		$this->add_control(
+			'grid_readmore_style_background_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'post-grid-elementor-addon' ),
+				'selectors' => [
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		// Readmore border color.
+		$this->add_control(
+			'grid_readmore_style_border_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Border Color', 'post-grid-elementor-addon' ),
+				'selectors' => [
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		// Hover tab.
+		$this->start_controls_tab(
+			'grid_readmore_style_color_hover_tab',
+			array(
+				'label' => esc_html__( 'Hover', 'post-grid-elementor-addon' ),
+			)
+		);
+
+		// Readmore hover color.
+		$this->add_control(
+			'grid_readmore_style_hover_color',
+			array(
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Color', 'post-grid-elementor-addon' ),
+				'global' => [
+					'default' => Global_Colors::COLOR_PRIMARY,
+				],
+				'selectors' => array(
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn:hover' => 'color: {{VALUE}};',
+				),
+			)
+		);
+
+		// Readmore hover background color.
+		$this->add_control(
+			'grid_readmore_style_hover_background_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Background Color', 'post-grid-elementor-addon' ),
+				'selectors' => [
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn:hover' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		// Readmore hover border color.
+		$this->add_control(
+			'grid_readmore_style_hover_border_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => __( 'Border Color', 'post-grid-elementor-addon' ),
+				'selectors' => [
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn:hover' => 'border-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->end_controls_tab();
+
+		$this->end_controls_tabs();
+
+		// Readmore border width.
+		$this->add_control(
+			'grid_readmore_style_border_width',
+			[
+				'type'       => Controls_Manager::DIMENSIONS,
+				'label'      => __( 'Border Width', 'post-grid-elementor-addon' ),
+				'separator'  => 'before',
+				'size_units' => array( 'px' ),
+				'selectors'  => [
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'border-style: solid; border-width: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				],
+			]
+		);
+
+		// Readmore border radius.
+		$this->add_control(
+			'grid_readmore_style_border_radius',
+			array(
+				'label'     => esc_html__( 'Border Radius', 'post-grid-elementor-addon' ),
+				'type'      => Controls_Manager::SLIDER,
+				'default'   => array(
+					'size' => 0,
+				),
+				'range'     => array(
+					'px' => array(
+						'min' => 0,
+						'max' => 100,
+					),
+				),
+				'selectors' => array(
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'border-radius: {{SIZE}}{{UNIT}}',
+				),
+			)
+		);
+
+		// Readmore button padding.
+		$this->add_responsive_control(
+			'grid_readmore_style_button_padding',
+			array(
+				'label'      => esc_html__( 'Padding', 'post-grid-elementor-addon' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => array( 'px' ),
+				'selectors'  => array(
+					'{{WRAPPER}} .wpcap-grid-container .wpcap-post a.read-more-btn' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
+				),
+			)
+		);
+
+		// Readmore margin.
 		$this->add_responsive_control(
 			'grid_readmore_style_margin',
 			[
@@ -880,7 +1057,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 
 		?>
 		<div class="wpcap-grid">
-			<?php 
+			<?php
 
 			$columns_desktop = ( ! empty( $settings['columns'] ) ? 'wpcap-grid-desktop-' . $settings['columns'] : 'wpcap-grid-desktop-3' );
 
@@ -909,7 +1086,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		        $query_args = array(
 					        	'posts_per_page' 		=> absint( $posts_per_page ),
 					        	'no_found_rows'  		=> true,
-					        	'post__not_in'          => get_option( 'sticky_posts' ),
+					        	'post_status'         	=> 'publish',
 					        	'ignore_sticky_posts'   => true,
 					        	'category_name' 		=> $cats
 				        	);
@@ -952,7 +1129,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 
 		        endif; ?>
 
-			</div>			      						               
+			</div>
 		</div>
 		<?php
 
@@ -968,10 +1145,12 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 	}
 
 	public function wpcap_filter_excerpt_more( $more ) {
-		return '&hellip;';
+		$settings = $this->get_settings();
+
+		return $settings['excerpt_append'];
 	}
 
-	protected function render_thumbnail() {	
+	protected function render_thumbnail() {
 
 		$settings = $this->get_settings();
 
@@ -982,7 +1161,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		}
 
 		$post_thumbnail_size = $settings['post_thumbnail_size'];
-			
+
 		if ( has_post_thumbnail() ) :  ?>
 			<div class="post-grid-thumbnail">
 				<a href="<?php the_permalink(); ?>">
@@ -992,7 +1171,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
         <?php endif;
 	}
 
-	protected function render_title() {	
+	protected function render_title() {
 
 		$settings = $this->get_settings();
 
@@ -1003,7 +1182,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		}
 
 		$title_tag = $settings['title_tag'];
-			
+
 		?>
 		<<?php echo $title_tag; ?> class="title">
 			<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -1020,7 +1199,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		if ( empty( $meta_data ) ) {
 			return;
 		}
-		
+
 		?>
 		<div class="post-grid-meta">
 			<?php
@@ -1028,28 +1207,28 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 
 				<span class="post-author"><?php the_author(); ?></span>
 
-				<?php 
+				<?php
 			}
 
 			if ( in_array( 'date', $meta_data ) ) { ?>
 
-				<span class="post-author"><?php echo apply_filters( 'the_date', get_the_date(), get_option( 'date_format' ), '', '' ); ?></span>
+				<span class="post-date"><time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date( get_option( 'date_format' ) ) ); ?></time></span>
 
 				<?php
 			}
 
 			if ( in_array( 'categories', $meta_data ) ) {
 
-				$categories_list = get_the_category_list( esc_html__( ', ', 'post-grid-elementor-addon' ) ); 
+				$categories_list = get_the_category_list( esc_html__( ', ', 'post-grid-elementor-addon' ) );
 
 				if ( $categories_list ) {
 				    printf( '<span class="post-categories">%s</span>', $categories_list ); // WPCS: XSS OK.
 				}
-				
+
 			}
 
 			if ( in_array( 'comments', $meta_data ) ) { ?>
-				
+
 				<span class="post-comments"><?php comments_number(); ?></span>
 
 				<?php
@@ -1069,7 +1248,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		if ( 'yes' !== $show_excerpt ) {
 			return;
 		}
-		
+
 		add_filter( 'excerpt_more', [ $this, 'wpcap_filter_excerpt_more' ], 20 );
 		add_filter( 'excerpt_length', [ $this, 'wpcap_filter_excerpt_length' ], 9999 );
 
@@ -1093,7 +1272,7 @@ class Elementor_Post_Grid_Widget extends Widget_Base {
 		if ( 'yes' !== $show_read_more ) {
 			return;
 		}
-		
+
 		?>
 		<a class="read-more-btn" href="<?php the_permalink(); ?>"><?php echo esc_html( $read_more_text ); ?></a>
 		<?php

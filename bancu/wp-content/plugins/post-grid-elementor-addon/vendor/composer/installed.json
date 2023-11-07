@@ -1,0 +1,102 @@
+{
+    "packages": [
+        {
+            "name": "ernilambar/wp-admin-notice",
+            "version": "1.0.0",
+            "version_normalized": "1.0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ernilambar/wp-admin-notice.git",
+                "reference": "1fd14ff6d79994750d25b4f529284a6942e117eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ernilambar/wp-admin-notice/zipball/1fd14ff6d79994750d25b4f529284a6942e117eb",
+                "reference": "1fd14ff6d79994750d25b4f529284a6942e117eb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "time": "2022-06-27T07:08:52+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Nilambar\\AdminNotice\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nilambar Sharma",
+                    "email": "nilambar@outlook.com",
+                    "homepage": "https://www.nilambar.net/"
+                }
+            ],
+            "description": "WordPress Helper for showing admin notice",
+            "homepage": "https://github.com/ernilambar/wp-admin-notice",
+            "keywords": [
+                "admin",
+                "notice",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/ernilambar/wp-admin-notice/issues/",
+                "source": "https://github.com/ernilambar/wp-admin-notice/tree/1.0.0"
+            },
+            "install-path": "../ernilambar/wp-admin-notice"
+        },
+        {
+            "name": "ernilambar/wp-welcome",
+            "version": "1.0.4",
+            "version_normalized": "1.0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ernilambar/wp-welcome.git",
+                "reference": "f3cf2f82d2b5d4701d7c2b95417d2c2a1fdc061e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ernilambar/wp-welcome/zipball/f3cf2f82d2b5d4701d7c2b95417d2c2a1fdc061e",
+                "reference": "f3cf2f82d2b5d4701d7c2b95417d2c2a1fdc061e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "time": "2023-02-13T07:42:14+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nilambar Sharma",
+                    "email": "nilambar@outlook.com",
+                    "homepage": "https://www.nilambar.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Create welcome page in WordPress. Useful for themes to showcase related information.",
+            "homepage": "https://github.com/ernilambar/wp-welcome",
+            "keywords": [
+                "plugin",
+                "theme",
+                "wordpress"
+            ],
+            "support": {
+                "issues": "https://github.com/ernilambar/wp-welcome/issues",
+                "source": "https://github.com/ernilambar/wp-welcome/tree/1.0.4"
+            },
+            "install-path": "../ernilambar/wp-welcome"
+        }
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

@@ -85,18 +85,6 @@ class MC4WP_Form_Listener {
 		/** @var MC4WP_MailChimp_Subscriber $subscriber */
 		$subscriber = null;
 
-		/**
-		 * @ignore
-		 * @deprecated 4.0
-		 */
-		$data = apply_filters( 'mc4wp_merge_vars', $data );
-
-		/**
-		 * @ignore
-		 * @deprecated 4.0
-		 */
-		$data = (array) apply_filters( 'mc4wp_form_merge_vars', $data, $form );
-
 		// create a map of all lists with list-specific data
 		$mapper = new MC4WP_List_Data_Mapper( $data, $form->get_lists() );
 
@@ -114,15 +102,23 @@ class MC4WP_Form_Listener {
 			 * Filters subscriber data before it is sent to Mailchimp. Fires for both form & integration requests.
 			 *
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 * @param string $list_id ID of the Mailchimp list this subscriber will be added/updated in
 			 */
-			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber );
+			$subscriber = apply_filters( 'mc4wp_subscriber_data', $subscriber, $list_id );
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
+				continue;
+			}
 
 			/**
 			 * Filters subscriber data before it is sent to Mailchimp. Only fires for form requests.
 			 *
 			 * @param MC4WP_MailChimp_Subscriber $subscriber
+			 * @param string $list_id ID of the Mailchimp list this subscriber will be added/updated in
 			 */
-			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber );
+			$subscriber = apply_filters( 'mc4wp_form_subscriber_data', $subscriber, $list_id );
+			if ( ! $subscriber instanceof MC4WP_MailChimp_Subscriber ) {
+				continue;
+			}
 
 			// send a subscribe request to Mailchimp for each list
 			$result = $mailchimp->list_subscribe( $list_id, $subscriber->email_address, $subscriber->to_array(), $form->settings['update_existing'], $form->settings['replace_interests'] );
@@ -177,6 +173,17 @@ class MC4WP_Form_Listener {
 			$form->last_event = 'subscribed';
 			$form->add_notice( $form->messages['subscribed'], 'success' );
 			$log->info( sprintf( 'Form %d > Successfully subscribed %s', $form->ID, $data['EMAIL'] ) );
+
+			/**
+			 * Fires right after a form was used to add a new subscriber.
+			 *
+			 * @since 4.8.13
+			 *
+			 * @param MC4WP_Form $form Instance of the submitted form
+			 * @param string $email
+			 * @param array $data
+			 */
+			do_action( 'mc4wp_form_added_subscriber', $form, $subscriber->email_address, $data );
 		}
 
 		/**
@@ -291,16 +298,22 @@ class MC4WP_Form_Listener {
 		 */
 		do_action( 'mc4wp_form_respond', $form );
 
-		// do stuff on success (non-AJAX only)
-		if ( $success && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-
-			// do we want to redirect?
+		// do stuff on success (if form was submitted over plain HTTP, not for AJAX or REST requests)
+		if ( $success && ! $this->request_wants_json() ) {
 			$redirect_url = $form->get_redirect_url();
 			if ( ! empty( $redirect_url ) ) {
 				wp_redirect( $redirect_url );
 				exit;
 			}
 		}
+	}
+
+	private function request_wants_json() {
+		if ( isset( $_SERVER['HTTP_ACCEPT'] ) && false !== strpos( $_SERVER['HTTP_ACCEPT'], 'application/json' ) ) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

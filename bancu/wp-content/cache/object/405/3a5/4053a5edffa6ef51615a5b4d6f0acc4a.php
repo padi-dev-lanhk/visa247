@@ -1,0 +1,1 @@
++ğc<?php exit; ?>a:1:{s:7:"content";s:55:"https://visa247.co/wp-includes/images/media/default.png";}

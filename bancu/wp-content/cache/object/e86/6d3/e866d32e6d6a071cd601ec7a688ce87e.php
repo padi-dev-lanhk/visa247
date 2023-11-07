@@ -1,0 +1,24 @@
+.şc<?php exit; ?>a:1:{s:7:"content";O:8:"stdClass":24:{s:2:"ID";i:4179;s:11:"post_author";s:1:"1";s:9:"post_date";s:19:"2019-12-24 06:05:05";s:13:"post_date_gmt";s:19:"2019-12-24 06:05:05";s:12:"post_content";s:3939:"<h2>Contact</h2>		
+			<h2>Contact us</h2>		
+					<ul>
+							<li >
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" x="0px" y="0px" width="47px" height="39px" viewBox="0 0 47 39" xml:space="preserve">  <image id="image0" width="47" height="39" x="0" y="0" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAnCAMAAACoquHzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAS1BMVEUARpgARpgARpgARpgA RpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgA Rpj///+yXaMrAAAAF3RSTlMAID/wsN9AgDBwoFDQYBCf73+/z8CQ4B3uyrIAAAABYktHRBibaYUe AAAAB3RJTUUH4wwMDDQcdRPH6QAAAKVJREFUOMvt1EsSwiAQBNBGEDDEMX65/00NELPQpOxZuEiV vX6kgA6DrAsyNPl7vTe7MQpvSy+O9qb2uKe9n4pnfWg+Kr3/lT8U3RnVeRNAe5TPa3y/evvLvhz4 qPCyXu/y/9mNC4LCG9v6lVOifK1giH7I+Ux5uLKg1nwRxks/D6gr4yG3l7eUB+6TD6RHrHt6UPtv Se6j6C/zRN5fwRbm28a8Lk+OrxpYs0iNdQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0xMi0xMlQx Mjo1MjoyOCswMzowMC5JAC4AAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMTItMTJUMTI6NTI6Mjgr MDM6MDBfFLiSAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJg gg=="></image>
+</svg>						
+										+8424 36740503
+									</li>
+								<li >
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" x="0px" y="0px" width="47px" height="39px" viewBox="0 0 47 39" xml:space="preserve">  <image id="image0" width="47" height="39" x="0" y="0" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAnCAMAAACoquHzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAASFBMVEUARpgARpgARpgARpgA RpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpj/ ///pXkjpAAAAFnRSTlMAPG6v+x/+wJz2cNzvh9tXz+eu5puGrhyEcgAAAAFiS0dEFwvWmI8AAAAH dElNRQfjDAwMMy+FgjA4AAAAoElEQVQ4y+3S2RKDIAwF0CCErVjslv//1LbaOu0Qgjw6Y145OpdL gPoGCHrm8Pv2aihG8prZGIN1b7kV03XPrqSre8/wIOSBWCQ6SfcNCtOftiM4Ic/7/Lej+XvJE50x my+f5nyyp5DxsmSJ4Br9LO4K/vXbhCq0+vzkuKHSEUbb7H+t5T481qI2+K3v2+sN533d51RoMwn7 0JzD7873zRPSdyf3NHeAjwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAxOS0xMi0xMlQxMjo1MTo0Nysw MzowMPVZwkMAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMTktMTItMTJUMTI6NTE6NDcrMDM6MDCEBHr/ AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAABJRU5ErkJggg=="></image>
+</svg>						
+										office@visa247.co
+									</li>
+								<li >
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" id="Layer_1" x="0px" y="0px" width="47px" height="39px" viewBox="0 0 47 39" xml:space="preserve">  <image id="image0" width="47" height="39" x="0" y="0" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC8AAAAnCAMAAACoquHzAAAABGdBTUEAALGPC/xhBQAAACBjSFJN AAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAQlBMVEUARpgARpgARpgARpgA RpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpgARpj////N/1X0 AAAAFHRSTlMAH67v/uabnPuHwK/PPOfccG72V2DUekgAAAABYktHRBXl2PmjAAAAB3RJTUUH4wwM DDQNH6PnGwAAALZJREFUOMvt00ESgyAMBdBPwQIqSqn3P2ungZlK0SZ0bVZZPJzMT8TWV9jQU5f/ w6ubNpsZ7krmrSm7cV7ix902Le9ttX7PeWUq7zg/EZsDwnI0UeM1cWrpwcp4GidQG9+tZnw+8rb/ 6Tu+T/MPn3ZhfI5/eCDqowW0+bsq/8TlD1/5yPoce6kZvN9dhFMCv5soQuKxFj5C5ktGCUKfN2ue Yk//2AS5R/o+HMaHUXX5s7o86/vqBWjcHeuGeioIAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDE5LTEy LTEyVDEyOjUyOjEzKzAzOjAwosFTNwAAACV0RVh0ZGF0ZTptb2RpZnkAMjAxOS0xMi0xMlQxMjo1 MjoxMyswMzowMNOc64sAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAAElF TkSuQmCC"></image>
+</svg>						
+										Hanoi Office: 14F, VTC Online Building, 18 Tam Trinh, Hai Ba Trung District, Hanoi City, Vietnam
+									</li>
+								<li >
+										HCM Office: P7-46OT11, 46F, Park 7, Vinhomes Central Park, Binh Thanh District, HCM City, Vietnam
+									</li>
+						</ul>
+		[contact-form-7 id="4199" title="Contact"]		
+			<iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=VTC%20online%20Building&amp;t=m&amp;z=10&amp;output=embed&amp;iwloc=near" aria-label="VTC online Building"></iframe>";s:10:"post_title";s:7:"Contact";s:12:"post_excerpt";s:0:"";s:11:"post_status";s:7:"publish";s:14:"comment_status";s:6:"closed";s:11:"ping_status";s:6:"closed";s:13:"post_password";s:0:"";s:9:"post_name";s:7:"contact";s:7:"to_ping";s:0:"";s:6:"pinged";s:0:"";s:13:"post_modified";s:19:"2020-01-06 01:56:35";s:17:"post_modified_gmt";s:19:"2020-01-06 01:56:35";s:21:"post_content_filtered";s:0:"";s:11:"post_parent";i:0;s:4:"guid";s:31:"http://visa247.co/?page_id=4179";s:10:"menu_order";i:0;s:9:"post_type";s:4:"page";s:14:"post_mime_type";s:0:"";s:13:"comment_count";s:1:"0";s:6:"filter";s:3:"raw";}}

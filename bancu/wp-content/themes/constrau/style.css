@@ -19,7 +19,9 @@ Domain Path: /languages/
 	    border-radius: 0px 0px 0px 0px !important;
 	    border-color: #cdcdcd !important;
 	}
-
+.avatar-q img{
+  margin-bottom: -10px;
+}
 #qlwapp.qlwapp-bottom-right{
 		bottom: -10px !important;
 	}
@@ -335,12 +337,12 @@ b,strong{
 	    justify-content: space-between;
 	}
 	.advisory .list-item-toiuu ul li.elementor-icon-list-item{
-		width: 28%;
+		width: 32%;
 		margin:0px!important;
 		display: inline-block;
 		text-align: center;
 		padding:0 15px;
-		padding-bottom: 50px!important;
+		padding-bottom: 30px!important;
 	}
 	.advisory .list-item-toiuu ul li.elementor-icon-list-item .elementor-icon-list-text{
 		display: block;
@@ -918,12 +920,19 @@ b,strong{
 		color: #fff;
 /* 		margin-bottom: 10px; */
 	}
+body.single-post .elementor-widget-theme-post-content p{
+	font-size: 18px;
+}
+
+body.single-post .elementor-heading-title.elementor-size-default{
+	font-size: 40px;
+}
 	.header{
 		background: transparent;
 	    position: fixed!important;
 	    top: 0;
 	    left: 0;
-	    z-index: 9999999;
+	    z-index: 99;
 	    width: 100%;
 	    color: #fff;
 	}
@@ -1500,9 +1509,9 @@ b,strong{
 	}
 	.contact-home .contact-left {
 	    width: 100%!important;
-	    max-height: 300px;
-	    min-height: 200px;
-	    margin-bottom: 20px;
+/* 	    max-height: 300px; */
+/* 	    min-height: 200px; */
+/* 	    margin-bottom: 20px; */
 	    margin-right: 0px;
 	}
 	.contact-home .contact-left img{

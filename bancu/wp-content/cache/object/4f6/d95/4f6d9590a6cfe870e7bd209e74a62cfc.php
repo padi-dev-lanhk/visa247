@@ -1,1 +1,0 @@
-cğc<?php exit; ?>a:1:{s:7:"content";a:2:{s:14:"polylang_mo_45";O:8:"stdClass":2:{s:10:"post_title";s:14:"polylang_mo_45";s:2:"ID";s:4:"2934";}s:14:"polylang_mo_52";O:8:"stdClass":2:{s:10:"post_title";s:14:"polylang_mo_52";s:2:"ID";s:4:"2936";}}}

